@@ -2,9 +2,9 @@ import Slider from "react-slick";
 import { slick_multiple_breakdown_settings, slick_multiple_breakdown_settings_cuisin } from "../utils/utils";
 import { useSelector } from "react-redux";
 
-export default function Category() {
+export default function Cuisine() {
   const category_data: any = useSelector((state: any) => state?.place);
-  console.log(`category_data?.category_data.cuisines?`, category_data.cuisines);
+  
   return (
     <>
       <div className="row controller-wrap">
