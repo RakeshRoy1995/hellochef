@@ -35,6 +35,23 @@ table{margin-bottom:10px; width:100%;} th{font-weight:bold;} thead th{background
 #suggestionsList li:hover {background-color: #ddd;}
 .right-sidebar {padding-top: 60px;width: 0;height: 100vh;background-color: #fff;box-sizing: border-box;transition: width 0.3s ease;position: fixed;top: 0;right: 0;overflow-x: hidden;z-index: 999;}
 .right-sidebar .login-sidebar {padding-right: 10vh;padding-left: 25px;}
+.input-box .input:focus-visible {
+    border-radius: 0;
+    outline: none;
+}
+input.PhoneInputInput:focus-visible{
+    border-radius: 0;
+    outline: none;
+}
+.login > p a {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fc8019;
+}
+.login h4 {
+    font-size: 30px;
+    font-weight: 600;
+}
 .right-sidebar a.closebtn2 {color: #818181;}
 .right-sidebar a.closebtn2:hover {color: #f1f1f1;}
 .right-sidebar a{color: #ffa700;}

@@ -1,5 +1,5 @@
 import Slider from "react-slick";
-import { slick_multiple_breakdown_settings } from "../utils/utils";
+import { slick_multiple_breakdown_settings, slick_multiple_breakdown_settings_cuisin } from "../utils/utils";
 import { useSelector } from "react-redux";
 
 export default function Category() {
@@ -27,7 +27,7 @@ export default function Category() {
         {category_data?.cuisines?.length > 0 && (
           <div className="row">
             <div className="col-md-12">
-              <Slider {...slick_multiple_breakdown_settings}>
+              <Slider {...slick_multiple_breakdown_settings_cuisin}>
                 {category_data.cuisines.map((cat_data: any, key: any) => (
                   <div className="item" key={key}>
                     <div className="recipe">
