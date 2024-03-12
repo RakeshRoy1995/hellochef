@@ -1,7 +1,8 @@
 
 import RecommendedEats from "./RecommendedEats";
-import Category from "./Category";
+import Cuisine from "./Cuisine";
 import PopularRestaurant from "./PopularRestaurant";
+import AllRestaurant from "./AllRestaurant";
 export default function Home() {
 
   return (
@@ -9,9 +10,10 @@ export default function Home() {
       <section className="mind-wrapper">
         <div className="container-fluid custom-max-width">
           
-          <Category />
+          <Cuisine />
           <PopularRestaurant />
           <RecommendedEats />
+          <AllRestaurant />
           <hr />
         </div>
       </section>
