@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function Category() {
   const category_data: any = useSelector((state: any) => state?.place);
-  console.log(`category_data?.category?`, category_data?.category);
+  console.log(`category_data?.category_data.cuisines?`, category_data.cuisines);
   return (
     <>
       <div className="row controller-wrap">
@@ -24,11 +24,11 @@ export default function Category() {
       </div>
 
       <div className="slider-container">
-        {category_data?.category?.length > 0 && (
+        {category_data?.cuisines?.length > 0 && (
           <div className="row">
             <div className="col-md-12">
               <Slider {...slick_multiple_breakdown_settings}>
-                {category_data.category.map((cat_data: any, key: any) => (
+                {category_data.cuisines.map((cat_data: any, key: any) => (
                   <div className="item" key={key}>
                     <div className="recipe">
                       <img
@@ -36,7 +36,7 @@ export default function Category() {
                           category_data?.get_default_config?.base_urls
                             ?.cuisine_image_url +
                           "/" +
-                          cat_data?.cover_photo
+                          cat_data?.cuisine?.image
                         }
                         width={144}
                         height={180}
