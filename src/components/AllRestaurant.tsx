@@ -30,11 +30,12 @@ export default function AllRestaurant() {
               <Slider {...slick_multiple_breakdown_settings}>
                 {category_data?.get_restaurant_all_offset_limit?.restaurants?.map((data: any, key: any) => (
                   <div className="item" key={key}>
-                    <div className="recipe-chain">
+                    <div className="recipe-chain popular-recipe">
                       <img src={
                                 category_data?.get_default_config?.base_urls
                                   ?.restaurant_cover_photo_url + "/" + data?.cover_photo
-                              }alt="" />
+                              } width={270}
+                              height={180} alt="" />
                       <div className="chain-wrap">
                         <h5>{data?.name}</h5>
                         <p className="rating">

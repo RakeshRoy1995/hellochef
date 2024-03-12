@@ -30,8 +30,9 @@ export default function Cuisine() {
               <Slider {...slick_multiple_breakdown_settings_cuisin}>
                 {category_data.cuisines.map((cat_data: any, key: any) => (
                   <div className="item" key={key}>
-                    <div className="recipe">
+                    <div className="recipe cuisin-img">
                       <img
+                      
                         src={
                           category_data?.get_default_config?.base_urls
                             ?.cuisine_image_url +
@@ -42,6 +43,7 @@ export default function Cuisine() {
                         height={180}
                         alt=""
                       />
+                      <p>North indian</p>
                     </div>
                   </div>
                 ))}

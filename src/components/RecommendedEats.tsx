@@ -61,7 +61,7 @@ export default function RecommendedEats() {
         <div className="row">
           {category_data?.products_most_reviewed?.products.map((data: any, key: any) => (
             <div className="col-xs-6 col-sm-6 col-md-3" key={key}>
-              <div className="recipe-chain">
+              <div className="recipe-chain recommended-recipe">
                 <img
                   src={
                     category_data?.get_default_config?.base_urls
@@ -69,6 +69,7 @@ export default function RecommendedEats() {
                     "/" +
                     data?.image
                   }
+
                   alt=""
                 />
                 <div className="chain-wrap">

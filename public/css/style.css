@@ -52,6 +52,35 @@ input.PhoneInputInput:focus-visible{
     font-size: 30px;
     font-weight: 600;
 }
+.recipe.cuisin-img img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.slick-slide { /* spacing in between each slide */
+    margin-right: -10px;
+}
+.recipe.cuisin-img p {
+    text-align: left;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #6a6a6a;
+    text-transform: capitalize;
+    letter-spacing: -.5px;
+    margin-left: 10px;
+}
+.recipe-chain.popular-recipe > img {
+    width: 270px;
+    height: 180px;
+    object-fit: cover;
+}
+.recipe-chain.recommended-recipe > img {
+    width: 100%;
+    height: 242px;
+    object-fit: cover;
+}
+    
 .right-sidebar a.closebtn2 {color: #818181;}
 .right-sidebar a.closebtn2:hover {color: #f1f1f1;}
 .right-sidebar a{color: #ffa700;}
