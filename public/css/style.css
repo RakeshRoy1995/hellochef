@@ -183,7 +183,6 @@ img{max-width:100%; height: auto;}
 /*what mind css*/
 .mind-wrapper {padding:  40px 0}
 .controller {float: right;}
-.custom-max-width {max-width: 1600px;margin-right: auto;margin-left: auto;}
 
 button.prev, button.next {border-radius: 50%;height: 34px;background: rgb(226, 226, 231);border: none;width: 34px;}
 .controller-wrap {margin-bottom: 30px;}
@@ -212,8 +211,12 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
    ========================================================================== */
 
 /* #### RESPONSIVE #### */
-@media (min-width: 2000px){ }
-@media (min-width: 1600px) {}
+
+@media (min-width: 1600px) {
+
+    .custom-max-width {width: 1440px;}
+}
+@media (min-width: 1800px){ .custom-max-width {width: 1600px;}}
 @media (max-width: 1600px){}
 
 @media (max-width: 1280px){}

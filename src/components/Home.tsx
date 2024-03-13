@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <section className="mind-wrapper">
-        <div className="container-fluid custom-max-width">
+        <div className="container custom-max-width">
           
           <Cuisine />
           <PopularRestaurant />
