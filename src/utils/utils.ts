@@ -71,42 +71,42 @@ export const formatNumber = (number :any) => {
   
 };
 
-export function timeSince(date:any) {
+// export function timeSince(date:any) {
   
-  const seconds = Math.floor((new Date() - new Date(date) ) / 1000);
+//   const seconds = Math.floor((new Date() - new Date(date) ) / 1000);
 
-  let interval = seconds / 31536000;
+//   let interval = seconds / 31536000;
 
-  if (interval > 1) {
-    return Math.floor(interval) + " years";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes";
-  }
-  return Math.floor(seconds) + " seconds";
-}
+//   if (interval > 1) {
+//     return Math.floor(interval) + " years";
+//   }
+//   interval = seconds / 2592000;
+//   if (interval > 1) {
+//     return Math.floor(interval) + " months";
+//   }
+//   interval = seconds / 86400;
+//   if (interval > 1) {
+//     return Math.floor(interval) + " days";
+//   }
+//   interval = seconds / 3600;
+//   if (interval > 1) {
+//     return Math.floor(interval) + " hours";
+//   }
+//   interval = seconds / 60;
+//   if (interval > 1) {
+//     return Math.floor(interval) + " minutes";
+//   }
+//   return Math.floor(seconds) + " seconds";
+// }
 
 
 export const slick_multiple_breakdown_settings: any = {
-  dots: true,
+  // dots: true,
   infinite: false,
   speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 5,
-  initialSlide: 0,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 4,
   responsive: [
     {
       breakpoint: 1024,
@@ -138,20 +138,20 @@ export const slick_multiple_breakdown_settings: any = {
 
 
 export const slick_multiple_breakdown_settings_cuisin: any = {
-  dots: true,
+  // dots: true,
   infinite: false,
   speed: 500,
-  slidesToShow: 10,
-  slidesToScroll: 10,
-  initialSlide: 0,
+  slidesToShow: 7,
+  slidesToScroll: 7,
+  initialSlide: 7,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 6,
-        slidesToScroll: 6,
+        slidesToShow: 4,
+        slidesToScroll: 4,
         infinite: true,
-        dots: true,
+        // dots: true,
       },
     },
     {

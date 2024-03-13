@@ -88,12 +88,17 @@ const Navbar = () => {
             const { data }: any = await place_api_details(suggestion?.place_id);
 
             if (data.status == "OK") {
-              searchInput.value = suggestion?.description;
+              // searchInput.value = suggestion?.description;
               dispatch(place_api_details_rdx(data));
               await fetchData(
                 data?.result?.geometry?.location.lat,
                 data?.result?.geometry?.location.lng
               );
+
+              let el :any= document.getElementById("mySidebar")
+              el.style.width = "0"
+              let el_2 :any= document.getElementById("overlay")
+              el_2.style.display = "none"
             }
 
             suggestionsList.style.display = "none";
@@ -164,7 +169,7 @@ const Navbar = () => {
     setshowOtpForm(false);
     seterror([]);
     event.preventDefault();
-    const datas = new FormData(event.target);
+    const datas :any = new FormData(event.target);
     try {
       if (showOtpForm) {
         const { data }: any = await varifyOTP(datas);
@@ -179,10 +184,10 @@ const Navbar = () => {
       }
       // setshowOtpForm(true);
       //
-      if (data?.token) {
-        localStorage.setItem("customer_login_auth", JSON.stringify(data));
-        window.location.href = "/";
-      }
+      // if (data?.token) {
+      //   localStorage.setItem("customer_login_auth", JSON.stringify(data));
+      //   window.location.href = "/";
+      // }
     } catch (error: any) {
       seterrormsg("Password did not matched.");
       const res = error?.response?.data?.errors;

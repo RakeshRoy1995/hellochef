@@ -43,7 +43,7 @@ export default function Cuisine() {
                         height={180}
                         alt=""
                       />
-                      <p>North indian</p>
+                      <p style={{marginLeft:"30px"}}>{cat_data?.cuisine?.name}</p>
                     </div>
                   </div>
                 ))}

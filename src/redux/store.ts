@@ -12,13 +12,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers =
+const composeEnhancers :any =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 
 export const store = configureStore({
   reducer: persistedReducer,
-  composeEnhancers,
+  // composeEnhancers : composeEnhancers,
   middleware: (getDefaultMiddleware :any) =>
     getDefaultMiddleware({
       serializableCheck: {

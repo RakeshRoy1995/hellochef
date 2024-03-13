@@ -13,6 +13,6 @@ const testReducer = createSlice({
 });
 export default testReducer.reducer;
 export const {
-  addtest,
+  // addtest,
   wRemove
 } = testReducer.actions;

@@ -2,7 +2,10 @@ import { useSelector } from "react-redux";
 
 export default function RecommendedEats() {
   const category_data: any = useSelector((state: any) => state?.place);
-  
+  console.log(
+    `category_data.products_most_reviewed?.products`,
+    category_data.products_most_reviewed?.products
+  );
   return (
     <section className="delivery-wrapper mind-wrapper">
       <div className="container-fluid custom-max-width">
@@ -35,7 +38,7 @@ export default function RecommendedEats() {
                     <a href="#">Fast Delivery</a>
                   </li>
                   <li>
-                    <a href="#">New on Swiggy</a>
+                    <a href="#">New on Hallochef</a>
                   </li>
                   <li>
                     <a href="#">Ratings 4.0+</a>
@@ -59,33 +62,44 @@ export default function RecommendedEats() {
         </div>
 
         <div className="row">
-          {category_data?.products_most_reviewed?.products.map((data: any, key: any) => (
-            <div className="col-xs-6 col-sm-6 col-md-3" key={key}>
-              <div className="recipe-chain recommended-recipe">
-                <img
-                  src={
-                    category_data?.get_default_config?.base_urls
-                      ?.product_image_url +
-                    "/" +
-                    data?.image
-                  }
-
-                  alt=""
-                />
-                <div className="chain-wrap">
-                  <h5>{data?.restaurant?.name}</h5>
-                  <p className="rating">
-                    <span>
-                      <img src="image/star.png" width={15} height={15} alt="" />
-                    </span>
-                    <span>{data?.avg_rating}</span>
-                    <span className="span">35-40 mins</span>s
-                  </p>
-                  <p>Pizzas, Pastas, Italian, Desserts, Beverages</p>
-                </div>
-              </div>
-            </div>
-          ))}
+          {category_data?.products_most_reviewed?.products.map(
+            (data: any, key: any) => (
+              <>
+                {data.available_time_starts.split(":")[0] <= new Date().getHours() &&
+                  data.available_time_ends.split(":")[0]  >= new Date().getHours() && (
+                    <div className="col-xs-6 col-sm-6 col-md-3" key={key}>
+                      <div className="recipe-chain recommended-recipe">
+                        <img
+                          src={
+                            category_data?.get_default_config?.base_urls
+                              ?.product_image_url +
+                            "/" +
+                            data?.image
+                          }
+                          alt=""
+                        />
+                        <div className="chain-wrap">
+                          <h5>{data?.name}</h5>
+                          <p className="rating">
+                            <span>
+                              <img
+                                src="image/star.png"
+                                width={15}
+                                height={15}
+                                alt=""
+                              />
+                            </span>
+                            <span>{data?.avg_rating}</span>
+                            {/* <span className="span">{data?.delivery_time} mins</span>s */}
+                          </p>
+                          {/* <p>Pizzas, Pastas, Italian, Desserts, Beverages</p> */}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+              </>
+            )
+          )}
         </div>
 
         <div className="row button-wrap">
