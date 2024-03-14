@@ -1,13 +1,36 @@
 import { useSelector } from "react-redux";
+import AllRestaurantComponent from "./AllRestaurantComponent";
 export default function AllRestaurant() {
   const category_data: any = useSelector((state: any) => state?.place);
   
   
   const filters = ( value:any) =>{
 
-    if (value == "Low to High") {
-      // category_data?.restaurants_latest
+    if (value == "Rating") {
+
+      console.log(`category_data?.restaurants_latest`, category_data?.restaurants_latest);
+      
+      const data = category_data?.restaurants_latest
+
+
+
+      const sortedArray = [...data].sort((a, b) => a.avg_rating.localeCompare(b.avg_rating));
+
+console.log(sortedArray);
+
+
+
+
+      // let final_data =  data.sort((person1:any, person2:any) => {
+
+      //   console.log(`person1?.avg_rating`,person1?.avg_rating );
+      //   return person1?.avg_rating - person2?.avg_rating;
+      // });
+
+      // console.log(`data`, final_data);
     }
+
+    
   }
   return (
     <section className="delivery-wrapper mind-wrapper">
@@ -62,51 +85,10 @@ export default function AllRestaurant() {
         </div>
 
         <div className="row">
-          {category_data?.restaurants_latest.map((data: any, key: any) => (
-            <>
-              <div className="col-xs-6 col-sm-6 col-md-3" key={key}>
-                <div className="recipe-chain recommended-recipe">
-                  <img
-                    src={
-                      category_data?.get_default_config?.base_urls
-                        ?.restaurant_cover_photo_url +
-                      "/" +
-                      data?.cover_photo
-                    }
-                    alt=""
-                  />
 
-                  <div className="chain-wrap">
-                    <h5>{data?.name}</h5>
-
-                    <p className="rating">
-                      {data?.avg_rating > 0 && (
-                        <>
-                          <span>
-                            <img
-                              src="image/star.png"
-                              width={15}
-                              height={15}
-                              alt=""
-                            />
-                          </span>
-                          <span>{data?.avg_rating}</span>
-                        </>
-                      )}
-                      <span className="span">{data?.delivery_time} min</span>
-                    </p>
-                    <p>
-                      {data?.cuisines.map((d: any) => (
-                        <>{d?.name} </>
-                      ))}
-                    </p>
-
-                    {data?.free_delivery && <p>Free delivery</p>}
-                  </div>
-                </div>
-              </div>
-            </>
-          ))}
+          <AllRestaurantComponent restaurent={category_data?.restaurants_latest} base_url={category_data?.get_default_config?.base_urls
+                        ?.restaurant_cover_photo_url} />
+          
         </div>
 
         {/* <div className="row button-wrap">
