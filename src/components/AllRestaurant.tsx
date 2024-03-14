@@ -66,15 +66,20 @@ export default function AllRestaurant() {
             <>
               <div className="col-xs-6 col-sm-6 col-md-3" key={key}>
                 <div className="recipe-chain recommended-recipe">
-                  <img
-                    src={
-                      category_data?.get_default_config?.base_urls
-                        ?.restaurant_cover_photo_url +
-                      "/" +
-                      data?.cover_photo
-                    }
-                    alt=""
-                  />
+                  <div className="price-wrapper">
+                    <img
+                      src={
+                        category_data?.get_default_config?.base_urls
+                          ?.restaurant_cover_photo_url +
+                        "/" +
+                        data?.cover_photo
+                      }
+                      alt=""
+                    />
+                    <div className="price-wrap">
+                      <p> 50% OFF UPTO ₹100</p>
+                    </div>
+                  </div>
 
                   <div className="chain-wrap">
                     <h5>{data?.name}</h5>
