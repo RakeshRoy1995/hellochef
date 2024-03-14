@@ -8,7 +8,7 @@ export default function RecommendedEats() {
   );
   return (
     <section className="delivery-wrapper mind-wrapper">
-      <div className="container-fluid custom-max-width">
+      <div className="container custom-max-width">
         <div className="row">
           <div className="col-md-12">
             <div className="delivery">

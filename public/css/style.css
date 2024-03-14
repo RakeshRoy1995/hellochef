@@ -206,6 +206,10 @@ button.prev, button.next {border-radius: 50%;height: 34px;background: rgb(226, 2
 .delivery-wrapper .delivery .filter-wrap ul li a {font-size: 14px;font-weight: 400;border-radius: 18px;background-color: rgb(255, 255, 255);border: 1px solid rgb(226, 226, 231);padding: 8px 12px;box-shadow: rgba(2, 6, 12, 0.04) 0px 2px 12px;}
 a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 12, 0.1);border-radius: 12px;display:  inline-block;margin: 50px auto;padding: 15px 50px;}
 .button-wrap {text-align:  center}
+.delivery-wrapper .col-md-3:nth-child(4n+1) {
+    clear: left;
+}
+.filter-wrap select {background: transparent}
 /* ==========================================================================
    15.0 Responsive CSS
    ========================================================================== */
@@ -219,15 +223,20 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
 @media (min-width: 1800px){ .custom-max-width {width: 1600px;}}
 @media (max-width: 1600px){}
 
-@media (max-width: 1280px){}
+@media (max-width: 1200px){}
 
-@media (min-width: 980px) and (max-width: 1280px){}
-@media (max-width:979px) {
+@media (min-width: 992px) and (max-width: 1200px){
+
+}
+@media (max-width:992px) {
     .header .navbar-nav>li>a {font-size: 14px;padding: 10px 10px;}
     .other li a {font-size: 14px;}
     .site-logo {margin-right: 25px;z-index:  9;}
     .site-logo img {max-width: 135px;}
     .other {z-index: 99;}
+    .delivery-wrapper .col-md-3:nth-child(2n+1) {
+        clear: left;
+      }
 }
 @media (min-width: 768px) and (max-width: 979px) { }
 
@@ -241,9 +250,20 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
     .mind-wrapper .chain-wrap h5 {font-size: 14px;}
     .controller {float: left;}
     .mind-wrapper h3 {font-weight: 700;font-size: 20px;}
+    .recipe-chain.recommended-recipe > img {
+        height: 140px;
+      }
 }
 @media (max-width:599px) {}
-@media (max-width:479px) {}
+@media (max-width:479px) {
+    .delivery-wrapper .col-xs-6 {
+        width: 100%;
+      }
+      .recipe-chain.recommended-recipe > img {
+        height: auto;
+        max-height: 220px;
+      }
+}
 @media (max-width:420px) and (orientation: portrait) {}
 
 
