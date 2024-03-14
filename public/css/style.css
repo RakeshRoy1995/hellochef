@@ -314,6 +314,10 @@ border-radius: 16px;
         height: auto;
         max-height: 220px;
       }
+      .recipe-chain.popular-recipe > img {
+        width: 100%;
+        height: auto;
+      }
 }
 @media (max-width:420px) and (orientation: portrait) {}
 
