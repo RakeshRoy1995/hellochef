@@ -59,7 +59,7 @@ input.PhoneInputInput:focus-visible{
     object-fit: cover;
 }
 .slick-slide { /* spacing in between each slide */
-    margin-right: -10px;
+    
 }
 .recipe.cuisin-img p {
     text-align: left;
@@ -218,9 +218,9 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
 
 @media (min-width: 1600px) {
 
-    .custom-max-width {width: 1440px;}
+    .container {width: 1440px;}
 }
-@media (min-width: 1800px){ .custom-max-width {width: 1600px;}}
+@media (min-width: 1800px){ .container {width: 1600px;}}
 @media (max-width: 1600px){}
 
 @media (max-width: 1200px){}
