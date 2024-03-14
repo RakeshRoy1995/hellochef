@@ -12,7 +12,7 @@ export default function AllRestaurant() {
         <div className="row controller-wrap">
           <div className="col-xs-12 col-sm-6 col-md-6">
             <h3>
-              ALl restaurant chains in{" "}
+              All restaurant chains in{" "}
               {category_data?.place_api_details?.result?.formatted_address ||
                 category_data?.get_zone_id?.zone_data[0]?.country}
             </h3>

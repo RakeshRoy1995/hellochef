@@ -8,7 +8,7 @@ export default function PopularRestaurant() {
   console.log(`reataurant_popular?`, category_data?.reataurant_popular);
   return (
     <section className="mind-wrapper">
-      <div className="container-fluid custom-max-width">
+      <div className="container custom-max-width">
         <div className="row controller-wrap">
           <div className="col-xs-12 col-sm-6 col-md-6">
             <h3>
