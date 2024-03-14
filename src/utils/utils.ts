@@ -173,3 +173,62 @@ export const slick_multiple_breakdown_settings_cuisin: any = {
 };
 
 
+export const sortingFunc = (data:any , key:any)=>{
+
+  if (key == "RatingLow") {
+    const x = data
+    const sortedRestaurants = [...x];
+    sortedRestaurants.sort((a, b) => {
+      const avgRatingA = typeof a.avg_rating === 'number' ? a.avg_rating : parseFloat(a.avg_rating);
+      const avgRatingB = typeof b.avg_rating === 'number' ? b.avg_rating : parseFloat(b.avg_rating);
+      return avgRatingA - avgRatingB;
+    });
+
+
+    return sortedRestaurants
+  }
+
+  if (key == "RatingHigh") {
+    const x = data
+    const sortedRestaurants = [...x];
+    sortedRestaurants.sort((a, b) => {
+      const avgRatingA = typeof a.avg_rating === 'number' ? a.avg_rating : parseFloat(a.avg_rating);
+      const avgRatingB = typeof b.avg_rating === 'number' ? b.avg_rating : parseFloat(b.avg_rating);
+      return avgRatingB - avgRatingA;
+    });
+    return sortedRestaurants
+  }
+
+
+  if (key == "Fast Delivery") {
+    const x = data
+    const sortedRestaurants = [...x];
+    sortedRestaurants.sort((a:any, b:any) => {
+      const avgRatingA = a.delivery_time;
+      const avgRatingB = b.delivery_time;
+      return avgRatingA < avgRatingB;
+    });
+    return sortedRestaurants
+  }
+
+
+  if (key == "4") {
+    const x = data
+    const sortedRestaurants = [...x];
+    const olderThan4 = sortedRestaurants.filter(person => person.avg_rating > 4);
+  
+    return olderThan4
+  }
+
+  if (key == "Pure Veg") {
+    const x = data
+    const sortedRestaurants = [...x];
+    const olderThan4 = sortedRestaurants.filter(person => person.veg ==1 );
+  
+    return olderThan4
+  }
+
+
+return []
+
+}
