@@ -201,7 +201,8 @@ button.prev, button.next {border-radius: 50%;height: 34px;background: rgb(226, 2
     overflow: hidden;
     width: 100%;}
 .mind-wrapper .chain-wrap p {font-size:  14px;}
-.mind-wrapper .recipe-chain {margin-bottom: 30px;}
+.mind-wrapper .recipe-chain {margin-bottom: 30px;padding: 0 5px;
+    box-sizing: border-box;}
 .mind-wrapper .recipe-chain > img:hover{transform: scale(0.95, 0.95);transform-origin: center center;transition: all 0.1s ease-in 0s;}
 
 .delivery-wrapper .delivery .filter-wrap{padding-bottom: 20px;}
