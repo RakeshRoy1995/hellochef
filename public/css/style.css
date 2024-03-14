@@ -75,7 +75,7 @@ input.PhoneInputInput:focus-visible{
     height: 180px;
     object-fit: cover;
 }
-.recipe-chain.recommended-recipe > img {
+.recipe-chain.recommended-recipe .price-wrapper > img {
     width: 100%;
     height: 242px;
     object-fit: cover;
@@ -192,6 +192,7 @@ button.prev, button.next {border-radius: 50%;height: 34px;background: rgb(226, 2
 .mind-wrapper .rating span {padding: 0 5px;}
 .mind-wrapper .owl-nav {display: none;}
 .mind-wrapper .recipe-chain > img{border-radius:  16px;transition: all 0.05s ease 0s;}
+.mind-wrapper .recipe-chain .price-wrapper > img{border-radius:  16px;transition: all 0.05s ease 0s;}
 .mind-wrapper .chain-wrap {margin-top: 20px;}
 .mind-wrapper .chain-wrap h5{font-weight: 700;font-size: 16px;line-height: 24px;letter-spacing: -0.3px;color: rgba(2, 6, 12, 0.75);}
 .mind-wrapper .chain-wrap p {font-size:  14px;}
@@ -210,6 +211,45 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
     clear: left;
 }
 .filter-wrap select {background: transparent}
+
+.price-wrap p {
+    font-family: ProximaNovaCond_Black;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 22px;
+    letter-spacing: -0.5px;
+    color: rgba(255, 255, 255, 0.92);
+    overflow: hidden;
+    width: 100%;
+    display: -webkit-box;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 1;
+    -moz-box-orient: vertical;
+  }
+  
+  .price-wrap {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    display: grid;
+    align-content: end;
+    text-align: left;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    height: calc(81px);
+    background: linear-gradient(rgba(27, 30, 36, 0) 0%, rgb(27, 30, 36) 84.21%);
+
+  }
+  .price-wrapper {
+
+    position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 2px 8px);
+  }
 /* ==========================================================================
    15.0 Responsive CSS
    ========================================================================== */
@@ -250,7 +290,7 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
     .mind-wrapper .chain-wrap h5 {font-size: 14px;}
     .controller {float: left;}
     .mind-wrapper h3 {font-weight: 700;font-size: 20px;}
-    .recipe-chain.recommended-recipe > img {
+    .recipe-chain.recommended-recipe .price-wrapper > img {
         height: 140px;
       }
 }
@@ -259,7 +299,7 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
     .delivery-wrapper .col-xs-6 {
         width: 100%;
       }
-      .recipe-chain.recommended-recipe > img {
+      .recipe-chain.recommended-recipe .price-wrapper  > img {
         height: auto;
         max-height: 220px;
       }
