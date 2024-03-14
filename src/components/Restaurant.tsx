@@ -16,15 +16,17 @@ export default function Restaurant({ restaurant_data, base_url }: any) {
             <div className="chain-wrap">
               <h5>{data?.name}</h5>
 
-              {data?.avg_rating > 0 && (
-                <p className="rating">
-                  <span>
-                    <img src="image/star.png" width={15} height={15} alt="" />
-                  </span>
-                  <span>{data?.avg_rating}</span>
-                  <span className="span">{data?.delivery_time} min</span>
-                </p>
-              )}
+              <p className="rating">
+                {data?.avg_rating > 0 && (
+                  <>
+                    <span>
+                      <img src="image/star.png" width={15} height={15} alt="" />
+                    </span>
+                    <span>{data?.avg_rating}</span>
+                  </>
+                )}
+                <span className="span">{data?.delivery_time} min</span>
+              </p>
               <p>
                 {data?.cuisines.map((d: any) => (
                   <>{d?.name} </>
