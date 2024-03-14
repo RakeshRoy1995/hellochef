@@ -249,6 +249,7 @@ a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 
   height: 100%;
   overflow: hidden;
   filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 2px 8px);
+border-radius: 16px;
   }
 /* ==========================================================================
    15.0 Responsive CSS
