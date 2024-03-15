@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { currency_symbol } from "../utils/utils";
 
 export default function AllRestaurantComponent({ restaurent, base_url }: any) {
+    
   return (
     <>
       {restaurent.map((data: any, key: any) => (
@@ -11,7 +14,16 @@ export default function AllRestaurantComponent({ restaurent, base_url }: any) {
                 <img src={base_url + "/" + data?.cover_photo} alt="" />
 
                 <div className="price-wrap">
-                  <p> 50% OFF UPTO ₹100</p>
+                    {
+                        data?.discount?.max_discount == 0 &&
+                        <p> {data?.discount?.discount} {data?.discount?.discount_type == "percent" ? "%" : ""} OFF on min perchase {currency_symbol()} {data?.discount?.min_purchase }</p>
+                    }
+
+{
+                        data?.discount?.max_discount > 0 &&
+                        <p> {data?.discount?.discount} {data?.discount?.discount_type == "percent" ? "%" : ""} OFF UPTO {currency_symbol()}{data?.discount?.min_purchase }</p>
+                    }
+                  
                 </div>
               </div>
 

@@ -1,6 +1,8 @@
 // import { useDispatch } from "react-redux";
 // import { countTimerLoginExpire } from "../redux/countTimer";
 import cogoToast from "cogo-toast";
+import { useSelector } from "react-redux";
+
 
 export const Validation = (
   customInputValidationCheck = [],
@@ -203,11 +205,11 @@ export const sortingFunc = (data:any , key:any)=>{
   if (key == "Fast Delivery") {
     const x = data
     const sortedRestaurants = [...x];
-    sortedRestaurants.sort((a:any, b:any) => {
-      const avgRatingA = a.delivery_time;
-      const avgRatingB = b.delivery_time;
-      return avgRatingA < avgRatingB;
-    });
+    // sortedRestaurants.sort((a:any, b:any) => {
+    //   const avgRatingA = a.delivery_time;
+    //   const avgRatingB = b.delivery_time;
+    //   return avgRatingA < avgRatingB;
+    // });
     return sortedRestaurants
   }
 
@@ -231,4 +233,10 @@ export const sortingFunc = (data:any , key:any)=>{
 
 return []
 
+}
+
+
+export const currency_symbol = ()=>{
+  const category_data: any = useSelector((state: any) => state?.place);
+  return category_data?.get_default_config?.currency_symbol
 }
