@@ -194,17 +194,28 @@ button.prev, button.next {border-radius: 50%;height: 34px;background: rgb(226, 2
 .mind-wrapper .recipe-chain > img{border-radius:  16px;transition: all 0.05s ease 0s;}
 .mind-wrapper .recipe-chain .price-wrapper > img{border-radius:  16px;transition: all 0.05s ease 0s;}
 .mind-wrapper .chain-wrap {margin-top: 20px;}
-.mind-wrapper .chain-wrap h5{font-weight: 700;font-size: 16px;line-height: 24px;letter-spacing: -0.3px;color: rgba(2, 6, 12, 0.75);}
+.mind-wrapper .chain-wrap h5{font-weight: 700;font-size: 16px;line-height: 24px;letter-spacing: -0.3px;color: rgba(2, 6, 12, 0.75);display: -webkit-box;
+    overflow-wrap: break-word;
+    -webkit-line-clamp: 1;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+    width: 100%;}
 .mind-wrapper .chain-wrap p {font-size:  14px;}
-.mind-wrapper .recipe-chain {margin-bottom: 30px;}
+.mind-wrapper .recipe-chain {margin-bottom: 30px;padding: 0 5px;
+    box-sizing: border-box;}
 .mind-wrapper .recipe-chain > img:hover{transform: scale(0.95, 0.95);transform-origin: center center;transition: all 0.1s ease-in 0s;}
 
 .delivery-wrapper .delivery .filter-wrap{padding-bottom: 20px;}
-.delivery-wrapper .delivery select{border:  none}
+.delivery-wrapper .delivery select {
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px soliid #000;
+    font-size: 14px;
+  }
 .delivery-wrapper .delivery h3{margin-bottom: 20px;}
 .delivery-wrapper .delivery .filter-wrap ul{padding:  0}
 .delivery-wrapper .delivery .filter-wrap ul li{display:  inline-block;padding:  0 3px;margin: 10px 0}
-.delivery-wrapper .delivery .filter-wrap ul li a {font-size: 14px;font-weight: 400;border-radius: 18px;background-color: rgb(255, 255, 255);border: 1px solid rgb(226, 226, 231);padding: 8px 12px;box-shadow: rgba(2, 6, 12, 0.04) 0px 2px 12px;}
+.delivery-wrapper .delivery .filter-wrap ul li a {font-size: 14px;font-weight: 400;border-radius: 18px;background-color: rgb(255, 255, 255);border: 1px solid rgb(226, 226, 231);padding: 8px 12px;box-shadow: rgba(2, 6, 12, 0.04) 0px 2px 12px;color: inherit;}
 a.show-btn {padding: 16px;box-sizing: border-box;border: 1.5px solid rgba(2, 6, 12, 0.1);border-radius: 12px;display:  inline-block;margin: 50px auto;padding: 15px 50px;}
 .button-wrap {text-align:  center}
 .delivery-wrapper .col-md-3:nth-child(4n+1) {
@@ -302,6 +313,10 @@ border-radius: 16px;
       .recipe-chain.recommended-recipe .price-wrapper  > img {
         height: auto;
         max-height: 220px;
+      }
+      .recipe-chain.popular-recipe > img {
+        width: 100%;
+        height: auto;
       }
 }
 @media (max-width:420px) and (orientation: portrait) {}
