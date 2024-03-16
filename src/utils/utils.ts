@@ -104,11 +104,11 @@ export const formatNumber = (number :any) => {
 
 export const slick_multiple_breakdown_settings: any = {
   // dots: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 4,
-  initialSlide: 4,
+  initialSlide: 1,
   responsive: [
     {
       breakpoint: 1024,
