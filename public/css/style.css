@@ -57,18 +57,19 @@ input.PhoneInputInput:focus-visible{
     height: 105px;
     border-radius: 50%;
     object-fit: cover;
+    margin: 0 auto 10px;
 }
 .slick-slide { /* spacing in between each slide */
     
 }
 .recipe.cuisin-img p {
-    text-align: left;
+    text-align: center;
     margin-top: 10px;
     font-weight: 600;
     color: #6a6a6a;
     text-transform: capitalize;
     letter-spacing: -.5px;
-    margin-left: 10px;
+    margin-left: 0!important;
 }
 .recipe-chain.popular-recipe > img {
     width: 270px;
@@ -324,6 +325,10 @@ border-radius: 16px;
         width: 100%;
         height: auto;
       }
+      .recipe.cuisin-img img {
+        width: 90px;
+        height: 90px;
+    }
 }
 @media (max-width:420px) and (orientation: portrait) {}
 

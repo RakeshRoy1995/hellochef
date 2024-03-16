@@ -177,8 +177,8 @@ export const slick_multiple_breakdown_settings_cuisin: any = {
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
   ],
