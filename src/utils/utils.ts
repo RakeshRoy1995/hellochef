@@ -106,7 +106,7 @@ export const slick_multiple_breakdown_settings: any = {
   // dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 4,
   initialSlide: 1,
   responsive: [
@@ -141,11 +141,11 @@ export const slick_multiple_breakdown_settings: any = {
 
 export const slick_multiple_breakdown_settings_cuisin: any = {
   // dots: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 7,
-  initialSlide: 7,
+  slidesToShow: 10,
+  slidesToScroll: 1,
+  initialSlide: 10,
   responsive: [
     {
       breakpoint: 1024,
