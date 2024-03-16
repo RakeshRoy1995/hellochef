@@ -78,7 +78,11 @@ const Navbar = () => {
   };
 
   function displaySuggestions(suggestions: any) {
-    const suggestionsList: any = document.getElementById("suggestionsList");
+    
+    try {
+
+
+      const suggestionsList: any = document.getElementById("suggestionsList");
     suggestionsList.innerHTML = "";
     suggestionsList.style.display = "block";
     if (suggestions.length > 0) {
@@ -108,12 +112,16 @@ const Navbar = () => {
 
             suggestionsList.style.display = "none";
           } catch (error: any) {
+
+
+            console.log(`error`, error?.response);
             const response: any =
               error?.response?.data?.errors[0]?.message ||
               "Something went wrong";
             seterrormsg(response);
             setloading(false);
-            toast(false, response);
+            // window.location.reload();
+            // toast(false, response);
           }
         });
         suggestionsList.appendChild(li);
@@ -123,6 +131,14 @@ const Navbar = () => {
     } else {
       suggestionsList.style.display = "none";
     }
+
+
+      
+    } catch (error) {
+      window.location.reload();
+    }
+
+    
   }
 
   function openRightNav() {

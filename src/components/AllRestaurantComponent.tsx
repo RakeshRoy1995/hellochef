@@ -1,6 +1,4 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { currency_symbol } from "../utils/utils";
+import CurrencySymbol from "./CurrencySymbol";
 
 export default function AllRestaurantComponent({ restaurent, base_url }: any) {
     
@@ -16,12 +14,12 @@ export default function AllRestaurantComponent({ restaurent, base_url }: any) {
                 <div className="price-wrap">
                     {
                         data?.discount?.max_discount == 0 &&
-                        <p> {data?.discount?.discount} {data?.discount?.discount_type == "percent" ? "%" : ""} OFF on min perchase {currency_symbol()} {data?.discount?.min_purchase }</p>
+                        <p> {data?.discount?.discount} {data?.discount?.discount_type == "percent" ? "%" : ""} OFF on min perchase <CurrencySymbol /> {data?.discount?.min_purchase }</p>
                     }
 
 {
                         data?.discount?.max_discount > 0 &&
-                        <p> {data?.discount?.discount} {data?.discount?.discount_type == "percent" ? "%" : ""} OFF UPTO {currency_symbol()}{data?.discount?.min_purchase }</p>
+                        <p> {data?.discount?.discount} {data?.discount?.discount_type == "percent" ? "%" : ""} OFF UPTO <CurrencySymbol />{data?.discount?.min_purchase }</p>
                     }
                   
                 </div>
