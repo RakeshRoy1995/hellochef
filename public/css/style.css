@@ -326,4 +326,8 @@ border-radius: 16px;
     margin-bottom: 5px;
 }
 
+.curson_point {
+    cursor: pointer;
+}
+
 /*End style css */

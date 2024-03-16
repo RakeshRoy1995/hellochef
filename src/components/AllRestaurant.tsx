@@ -26,7 +26,7 @@ export default function AllRestaurant() {
           <div className="col-md-12">
             <div className="delivery">
               <h3>
-                All restaurant chains in{" "}
+                All restaurant in{" "}
                 {category_data?.place_api_details?.result?.formatted_address ||
                   category_data?.get_zone_id?.zone_data[0]?.country}
               </h3>
@@ -38,34 +38,34 @@ export default function AllRestaurant() {
                   <li>
                     <select name="Sortby" onChange={(e :any)=> filters(e.target.value)  } id="sort" form="sortorm">
                       <option value="">Sort By</option>
-                      <option value="Delivery Time">Delivery Time</option>
+                      {/* <option value="Delivery Time">Delivery Time</option> */}
                       <option value="RatingHigh">Rating: High to Low  </option>
                       <option value="RatingLow">Rating: Low to High </option>
-                      <option value="Low to High">Cost: Low to High</option>
-                      <option value="High to Low">Cost: High to Low</option>
+                      {/* <option value="Low to High">Cost: Low to High</option>
+                      <option value="High to Low">Cost: High to Low</option> */}
                     </select>
                   </li>
                   <li>
-                    <a onClick={ (e :any)=> filters("Fast Delivery")  }>Fast Delivery</a>
+                    <a className="curson_point" onClick={ (e :any)=> filters("Fast Delivery")  }>Fast Delivery</a>
                   </li>
                   <li>
-                    <a onClick={ (e :any)=> filters("New on Hallochef")  }>New on Hallochef</a>
+                    <a className="curson_point" onClick={ (e :any)=> filters("free delevery")  }>Free Delevery</a>
                   </li>
                   <li>
-                    <a onClick={ (e :any)=> filters("4")  }>Ratings 4.0+</a>
+                    <a className="curson_point" onClick={ (e :any)=> filters("4")  }>Ratings 4.0+</a>
                   </li>
                   <li>
-                    <a onClick={ (e :any)=> filters("Pure Veg")  }>Pure Veg</a>
+                    <a className="curson_point" onClick={ (e :any)=> filters("Pure Veg")  }>Pure Veg</a>
                   </li>
                   <li>
-                    <a onClick={ (e :any)=> filters("Offers")  }>Offers</a>
+                    <a className="curson_point" onClick={ (e :any)=> filters("Offers")  }>Offers</a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a onClick={ (e :any)=> filters("Rs. 300-Rs. 600")  }>Rs. 300-Rs. 600</a>
                   </li>
                   <li>
                     <a onClick={ (e :any)=> filters("Less than Rs. 300")  }>Less than Rs. 300</a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

@@ -6,8 +6,8 @@ export default function Footer() {
           <div className="row">
             <div className="col-sm-6 col-md-3">
               <div className="footer-logo">
-                <img className="f-logo" src="image/logo.jpeg" alt="" />
-                <p>© 2023 Bundl Technologies Pvt. Ltd</p>
+                <img className="f-logo" src="image/logo.png" alt="" />
+                <p>© {new Date().getFullYear()} hallochef</p>
               </div>
             </div>
             <div className="col-sm-6 col-md-3">
@@ -70,23 +70,16 @@ export default function Footer() {
                 <h4>We deliver to:</h4>
                 <ul>
                   <li>
-                    <a href="#">Bangalore</a>
+                    <a href="#">Bangkok</a>
                   </li>
                   <li>
-                    <a href="#">Gurgaon</a>
+                    <a href="#">Dhaka</a>
                   </li>
-                  <li>
-                    <a href="#">Hyderabad</a>
-                  </li>
+                  
                   <li>
                     <a href="#">Delhi</a>
                   </li>
-                  <li>
-                    <a href="#">Mumbai</a>
-                  </li>
-                  <li>
-                    <a href="#">Pune</a>
-                  </li>
+                
                   {/* <p>
                     <a
                       className="btn btn-primary"

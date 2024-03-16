@@ -44,8 +44,10 @@ const Navbar = () => {
   const [error, seterror] = useState([]);
   const [errormsg, seterrormsg] = useState("");
   const [fname, setfname] = useState("");
+  const [loginFormShow, setloginFormShow] = useState(true);
   const [lname, setlname] = useState("");
   const [showOtpForm, setshowOtpForm] = useState(false);
+  const [loading, setloading] = useState(false);
   const [value, setValue] = useState<any>("");
 
   const place_data = useSelector((state: any) => state?.place);
@@ -85,29 +87,32 @@ const Navbar = () => {
         li.textContent = suggestion?.description;
         li.addEventListener("click", async function () {
           try {
+            setloading(true);
+            seterrormsg("");
             const { data }: any = await place_api_details(suggestion?.place_id);
 
             if (data.status == "OK") {
-              // searchInput.value = suggestion?.description;
               dispatch(place_api_details_rdx(data));
               await fetchData(
                 data?.result?.geometry?.location.lat,
                 data?.result?.geometry?.location.lng
               );
 
-              let el :any= document.getElementById("mySidebar")
-              el.style.width = "0"
-              let el_2 :any= document.getElementById("overlay")
-              el_2.style.display = "none"
+              const el: any = document.getElementById("mySidebar");
+              el.style.width = "0";
+              const el_2: any = document.getElementById("overlay");
+              el_2.style.display = "none";
             }
+            setloading(false);
+            window.location.reload();
 
             suggestionsList.style.display = "none";
           } catch (error: any) {
             const response: any =
               error?.response?.data?.errors[0]?.message ||
               "Something went wrong";
-
-            console.log(`error.response`, response);
+            seterrormsg(response);
+            setloading(false);
             toast(false, response);
           }
         });
@@ -121,29 +126,13 @@ const Navbar = () => {
   }
 
   function openRightNav() {
-    document.getElementById("myRightSidebar").style.width = "60vh";
+    document.getElementById("myRightSidebar").style.width = "80vh";
     document.getElementById("rightOverlay").style.display = "block";
   }
 
   function closeRightNav(e) {
     document.getElementById("myRightSidebar").style.width = "0";
     document.getElementById("rightOverlay").style.display = "none";
-  }
-
-  function toggleSections(e) {
-    const loginSection = document.getElementById("loginSection");
-    const signupSection = document.getElementById("signupSection");
-    const signupForm = document.getElementById("signupForm");
-
-    if (loginSection.style.display === "block") {
-      loginSection.style.display = "none";
-      signupSection.style.display = "block";
-      signupForm.style.display = "block";
-    } else {
-      loginSection.style.display = "block";
-      signupSection.style.display = "none";
-      signupForm.style.display = "none";
-    }
   }
 
   const handleSubmit = async (event: any) => {
@@ -169,7 +158,7 @@ const Navbar = () => {
     setshowOtpForm(false);
     seterror([]);
     event.preventDefault();
-    const datas :any = new FormData(event.target);
+    const datas: any = new FormData(event.target);
     try {
       if (showOtpForm) {
         const { data }: any = await varifyOTP(datas);
@@ -250,9 +239,9 @@ const Navbar = () => {
   };
 
   const createFnameLname = (e: any) => {
-    let value = e.target.value;
-    let first = value.split(" ")[0];
-    let last = value.split(" ")[1] || first;
+    const value = e.target.value;
+    const first = value.split(" ")[0];
+    const last = value.split(" ")[1] || first;
     setfname(first);
     setlname(last);
   };
@@ -260,6 +249,8 @@ const Navbar = () => {
   useEffect(() => {
     fetchInitial();
   }, []);
+
+  console.log(`searchInputValue`, loading);
 
   return (
     <header className="header">
@@ -355,9 +346,12 @@ const Navbar = () => {
           ×
         </a>
         <div className="search-container search-bar">
+          {errormsg && <p style={{ color: "red" }}> {errormsg}</p>}
+
           <input
             type="text"
             id="searchInput"
+            autoComplete="off"
             onChange={(e) =>
               setTimeout(() => {
                 searchInputOnchng(e);
@@ -365,6 +359,8 @@ const Navbar = () => {
             }
             placeholder="Search for area, street name.."
           />
+          {loading && <>loading...</>}
+
           <ul id="suggestionsList" />
         </div>
         <div className="gps">
@@ -388,123 +384,24 @@ const Navbar = () => {
         </a>
         <div className="login-sidebar" id="loginSidebar">
           <div className="login-wrap">
-            <div className="login" id="loginSection">
-              <h4>Login</h4>
-              <p>
-                or{" "}
-                <a href="#" onClick={(e) => toggleSections(e)}>
-                  create an account
-                </a>
-              </p>
-              <hr />
+            {loginFormShow && (
+              <div className="login" id="loginSection">
+                <h4>Login</h4>
+                <p>
+                  or{" "}
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      setloginFormShow(!loginFormShow);
+                      // toggleSections(e)
+                    }}
+                  >
+                    create an account
+                  </a>
+                </p>
+                <hr />
 
-              <form onSubmit={handleSubmit}>
-                <div className="parent mb-5">
-                  <div className="input-box">
-                    <PhoneInput
-                      placeholder="Enter phone number"
-                      defaultCountry={"TH"}
-                      value={value}
-                      onChange={(e: any) => {
-
-                        console.log(`e`, e);
-                        if (e) {
-                          setValue(e);
-                        }
-                      }}
-                      name=""
-                      className="input"
-                    />
-                  </div>
-                </div>
-
-                <input
-                  className="input"
-                  required
-                  type="hidden"
-                  value={value.replace(/\s/g, "")}
-                  id="phone"
-                  name="phone"
-                />
-
-                <div className="parent">
-                  <div className="input-box">
-                    <input
-                      className="input"
-                      required
-                      type="password"
-                      id="password"
-                      name="password"
-                    />
-                    <label className="label" htmlFor="password">
-                      Password
-                    </label>
-                  </div>
-                </div>
-
-                <div className="clearfix">
-                  <button type="submit" className="login-btn">
-                    Login
-                  </button>
-
-                  <ul style={{ listStyleType: "none" }}>
-                    {error.map((data: any, key: number) => (
-                      <li key={key} style={{ color: "red" }}>
-                        {data[1].message}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <br />
-                  <div className="term-condition">
-                    <small>
-                      By clicking on Login, I accept the{" "}
-                      <a href="#">
-                        Terms &amp; Conditions &amp; Privacy Policy
-                      </a>
-                    </small>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div
-              className="login"
-              id="signupSection"
-              style={{ display: "none" }}
-            >
-              <h4>Sign up</h4>
-              <p>
-                or{" "}
-                <a href="#" onClick={(e) => toggleSections(e)}>
-                  login to your account
-                </a>
-              </p>
-              <hr />
-            </div>
-            <form
-              onSubmit={handleSubmitSignUp}
-              style={{ display: "none" }}
-              id="signupForm"
-            >
-              {!showOtpForm ? (
-                <>
-                  <div className="parent mb-5">
-                    <div className="input-box">
-                      <input
-                        className="input"
-                        required
-                        type="text"
-                        onChange={(e: any) => createFnameLname(e)}
-                      />
-                      <label className="label" htmlFor="fname">
-                        Full Name
-                      </label>
-                    </div>
-                  </div>
-
-                  <input type="hidden" name="f_name" value={fname} />
-                  <input type="hidden" name="l_name" value={lname} />
-
+                <form onSubmit={handleSubmit}>
                   <div className="parent mb-5">
                     <div className="input-box">
                       <PhoneInput
@@ -512,6 +409,7 @@ const Navbar = () => {
                         defaultCountry={"TH"}
                         value={value}
                         onChange={(e: any) => {
+                          console.log(`e`, e);
                           if (e) {
                             setValue(e);
                           }
@@ -522,49 +420,6 @@ const Navbar = () => {
                     </div>
                   </div>
 
-                  <div className="parent mb-5">
-                    <div className="input-box">
-                      <input
-                        className="input"
-                        required
-                        type="email"
-                        id="email"
-                        name="email"
-                      />
-                      <label className="label" htmlFor="email">
-                        Email
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="parent mb-5">
-                    <div className="input-box">
-                      <input
-                        className="input"
-                        required
-                        type="password"
-                        id="password2"
-                        name="password"
-                      />
-                      <label className="label" htmlFor="password2">
-                        Password
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="parent mb-5">
-                    <div className="input-box">
-                      <input
-                        className="input"
-                        type="text"
-                        id="ref_code"
-                        name="ref_code"
-                      />
-                      <label className="label" htmlFor="ref_code">
-                        Referral code (Optional)
-                      </label>
-                    </div>
-                  </div>
                   <input
                     className="input"
                     required
@@ -573,47 +428,205 @@ const Navbar = () => {
                     id="phone"
                     name="phone"
                   />
-                </>
-              ) : (
-                <>
-                <input type="text" name="phone" value={value} />
-                  <div className="parent mb-5">
+
+                  <div className="parent">
                     <div className="input-box">
                       <input
                         className="input"
                         required
-                        type="text"
-                        name="otp"
-                        // onChange={(e: any) => createFnameLname(e)}
+                        type="password"
+                        id="password"
+                        name="password"
                       />
-                      <label className="label" htmlFor="fname">
-                        Please Enter OTP
+                      <label className="label" htmlFor="password">
+                        Password
                       </label>
                     </div>
                   </div>
-                </>
-              )}
-              <div className="clearfix">
-                <ul style={{ listStyleType: "none" }}>
-                  {error.map((data: any, key: number) => (
-                    <li key={key} style={{ color: "red" }}>
-                      {data[1].message}
-                    </li>
-                  ))}
-                </ul>
 
-                <button type="submit" className="login-btn">
-                  Continue
-                </button>
-                <br />
-                <div className="term-condition">
-                  <small>
-                    By creating an account, I accept the{" "}
-                    <a href="#">Terms &amp; Conditions &amp; Privacy Policy</a>
-                  </small>
-                </div>
+                  <div className="clearfix">
+                    <button type="submit" className="login-btn">
+                      Login
+                    </button>
+
+                    <ul style={{ listStyleType: "none" }}>
+                      {error.map((data: any, key: number) => (
+                        <li key={key} style={{ color: "red" }}>
+                          {data[1].message}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <br />
+                    <div className="term-condition">
+                      <small>
+                        By clicking on Login, I accept the{" "}
+                        <a href="#">
+                          Terms &amp; Conditions &amp; Privacy Policy
+                        </a>
+                      </small>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
+            )}
+
+            {!loginFormShow && (
+              <>
+                <div
+                  className="login"
+                  id="signupSection"
+                >
+                  <h4>Sign up</h4>
+                  <p>
+                    or{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => setloginFormShow(!loginFormShow)}
+                    >
+                      login to your account
+                    </a>
+                  </p>
+                  <hr />
+                </div>
+
+                <form
+                  onSubmit={handleSubmitSignUp}
+                  id="signupForm"
+                >
+                  {!showOtpForm ? (
+                    <>
+                      
+                      <input type="hidden" name="f_name" value={fname} />
+                      <input type="hidden" name="l_name" value={lname} />
+
+                      <div className="parent mb-5">
+                        <div className="input-box">
+                          <PhoneInput
+                            placeholder="Enter phone number"
+                            defaultCountry={"TH"}
+                            value={value}
+                            onChange={(e: any) => {
+                              if (e) {
+                                setValue(e);
+                              }
+                            }}
+                            name=""
+                            className="input"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="parent mb-5">
+                        <div className="input-box">
+                          <input
+                            className="input"
+                            required
+                            type="email"
+                            id="email"
+                            name="email"
+                          />
+                          <label className="label" htmlFor="email">
+                            Email
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="parent mb-5">
+                        <div className="input-box">
+                          <input
+                            className="input"
+                            required
+                            type="text"
+                            onChange={(e: any) => createFnameLname(e)}
+                          />
+                          <label className="label" htmlFor="fname">
+                            Full Name
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="parent mb-5">
+                        <div className="input-box">
+                          <input
+                            className="input"
+                            required
+                            type="password"
+                            id="password2"
+                            name="password"
+                          />
+                          <label className="label" htmlFor="password2">
+                            Password
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="parent mb-5">
+                        <div className="input-box">
+                          <input
+                            className="input"
+                            type="text"
+                            id="ref_code"
+                            name="ref_code"
+                          />
+                          <label className="label" htmlFor="ref_code">
+                            Referral code (Optional)
+                          </label>
+                        </div>
+                      </div>
+                      <input
+                        className="input"
+                        required
+                        type="hidden"
+                        value={value.replace(/\s/g, "")}
+                        id="phone"
+                        name="phone"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <input type="text" name="phone" value={value} />
+                      <div className="parent mb-5">
+                        <div className="input-box">
+                          <input
+                            className="input"
+                            required
+                            type="text"
+                            name="otp"
+                            // onChange={(e: any) => createFnameLname(e)}
+                          />
+                          <label className="label" htmlFor="fname">
+                            Please Enter OTP
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  <div className="clearfix">
+                    <ul style={{ listStyleType: "none" }}>
+                      {error.map((data: any, key: number) => (
+                        <li key={key} style={{ color: "red" }}>
+                          {data[1].message}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <button type="submit" className="login-btn">
+                      Continue
+                    </button>
+                    <br />
+                    <div className="term-condition">
+                      <small>
+                        By creating an account, I accept the{" "}
+                        <a href="#">
+                          Terms &amp; Conditions &amp; Privacy Policy
+                        </a>
+                      </small>
+                    </div>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
         </div>
       </div>
