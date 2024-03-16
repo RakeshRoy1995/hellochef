@@ -53,8 +53,8 @@ input.PhoneInputInput:focus-visible{
     font-weight: 600;
 }
 .recipe.cuisin-img img {
-    width: 120px;
-    height: 120px;
+    width: 105px;
+    height: 105px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -270,9 +270,15 @@ border-radius: 16px;
 @media (min-width: 1600px) {
 
     .container {width: 1440px;}
+    .recipe.cuisin-img img {
+        width: 120px;
+        height: 120px;
+    }
 }
 @media (min-width: 1800px){ .container {width: 1600px;}}
-@media (max-width: 1600px){}
+@media (max-width: 1600px){
+
+}
 
 @media (max-width: 1200px){}
 

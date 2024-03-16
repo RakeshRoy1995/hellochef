@@ -106,7 +106,7 @@ export const slick_multiple_breakdown_settings: any = {
   // dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 4,
   initialSlide: 1,
   responsive: [
@@ -141,17 +141,27 @@ export const slick_multiple_breakdown_settings: any = {
 
 export const slick_multiple_breakdown_settings_cuisin: any = {
   // dots: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
-  slidesToShow: 7,
-  slidesToScroll: 7,
-  initialSlide: 7,
+  slidesToShow: 10,
+  slidesToScroll: 1,
+  initialSlide: 10,
   responsive: [
+    {
+      breakpoint: 1280, // New breakpoint starting from 1280px
+      settings: {
+        slidesToShow: 8, // Adjust slidesToShow and slidesToScroll as needed
+        slidesToScroll: 8,
+        initialSlide: 8,
+        // Add any other settings you want for this breakpoint
+      },
+    },
+
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         infinite: true,
         // dots: true,
       },
@@ -159,8 +169,8 @@ export const slick_multiple_breakdown_settings_cuisin: any = {
     {
       breakpoint: 600,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 4,
+        slidesToScroll: 4,
         initialSlide: 2,
       },
     },
