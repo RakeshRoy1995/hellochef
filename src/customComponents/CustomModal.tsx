@@ -7,6 +7,9 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import CurrencySymbol from "../components/CurrencySymbol";
+import { useDispatch } from "react-redux";
+import { cincrement } from "../redux/cartReducer";
+import { toast } from "../utils/utils";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,7 +23,6 @@ const style = {
   p: 4,
 };
 
-
 export default function CustomModal({
   handleOpen,
   handleClose,
@@ -28,6 +30,7 @@ export default function CustomModal({
   open,
   base_url,
 }: any) {
+  const dispatch = useDispatch();
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
@@ -66,11 +69,25 @@ export default function CustomModal({
                 <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                   {data?.description}
                 </Typography>
-                
                 <CurrencySymbol /> {data?.price}
                 <p>{data?.restaurant_name}</p>
                 <Stack spacing={2} direction="row">
-                  <Button variant="contained" color="success">Add to cart</Button>
+                  <Button
+                    variant="contained"
+                    onClick={(e) => {
+                      const items = {
+                        ...data,
+                        ["total_iteam"]: 1,
+                        ["price"]: Number(data.price),
+                      };
+
+                      dispatch(cincrement(items));
+                      toast(true, 'product added to cart' );
+                    }}
+                    color="success"
+                  >
+                    Add to cart
+                  </Button>
                 </Stack>
               </Grid>
             </Grid>

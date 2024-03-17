@@ -17,13 +17,13 @@ const cartReducer = createSlice({
     cincrement: (state, action) => {
       console.log(`cartProduct`, action);
 
-      const newState = state && state?.filter((value) => value?._id);
+      const newState = state && state?.filter((value) => value?.id);
 
       const cartProduct = newState.map((product) => ({
         ...product,
       }));
       const itemIndex = cartProduct.findIndex(
-        (product) => product._id === action.payload._id
+        (product) => product.id === action.payload.id
       );
 
       if (itemIndex > -1) {
@@ -37,14 +37,7 @@ const cartReducer = createSlice({
         cartProduct[itemIndex].calculable_price =
           action.payload.calculable_price;
         cartProduct[itemIndex].price = action.payload.price;
-        cartProduct[itemIndex].weight = action.payload.weight;
-        cartProduct[itemIndex].weight_class_id = action.payload.weight_class_id;
-        cartProduct[itemIndex].cost_price = action.payload.cost_price;
-        cartProduct[itemIndex].attribute_index_first =
-          action?.payload?.attribute_index_first;
-        cartProduct[itemIndex].attribute_index_secound =
-          action?.payload?.attribute_index_secound;
-        cartProduct[itemIndex].images = action?.payload?.images;
+        
         cartProduct[itemIndex].checkstatus = true;
 
         return cartProduct;
