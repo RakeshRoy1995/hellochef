@@ -78,67 +78,59 @@ const Navbar = () => {
   };
 
   function displaySuggestions(suggestions: any) {
-    
     try {
-
-
       const suggestionsList: any = document.getElementById("suggestionsList");
-    suggestionsList.innerHTML = "";
-    suggestionsList.style.display = "block";
-    if (suggestions.length > 0) {
-      suggestions.forEach((suggestion: any) => {
-        const li = document.createElement("li");
-        li.textContent = suggestion?.description;
-        li.addEventListener("click", async function () {
-          try {
-            setloading(true);
-            seterrormsg("");
-            const { data }: any = await place_api_details(suggestion?.place_id);
-
-            if (data.status == "OK") {
-              dispatch(place_api_details_rdx(data));
-              await fetchData(
-                data?.result?.geometry?.location.lat,
-                data?.result?.geometry?.location.lng
+      suggestionsList.innerHTML = "";
+      suggestionsList.style.display = "block";
+      if (suggestions.length > 0) {
+        suggestions.forEach((suggestion: any) => {
+          const li = document.createElement("li");
+          li.textContent = suggestion?.description;
+          li.addEventListener("click", async function () {
+            try {
+              setloading(true);
+              seterrormsg("");
+              const { data }: any = await place_api_details(
+                suggestion?.place_id
               );
 
-              const el: any = document.getElementById("mySidebar");
-              el.style.width = "0";
-              const el_2: any = document.getElementById("overlay");
-              el_2.style.display = "none";
+              if (data.status == "OK") {
+                dispatch(place_api_details_rdx(data));
+                await fetchData(
+                  data?.result?.geometry?.location.lat,
+                  data?.result?.geometry?.location.lng
+                );
+
+                const el: any = document.getElementById("mySidebar");
+                el.style.width = "0";
+                const el_2: any = document.getElementById("overlay");
+                el_2.style.display = "none";
+              }
+              setloading(false);
+              window.location.reload();
+
+              suggestionsList.style.display = "none";
+            } catch (error: any) {
+              console.log(`error`, error?.response);
+              const response: any =
+                error?.response?.data?.errors[0]?.message ||
+                "Something went wrong";
+              seterrormsg(response);
+              setloading(false);
+              // window.location.reload();
+              // toast(false, response);
             }
-            setloading(false);
-            window.location.reload();
-
-            suggestionsList.style.display = "none";
-          } catch (error: any) {
-
-
-            console.log(`error`, error?.response);
-            const response: any =
-              error?.response?.data?.errors[0]?.message ||
-              "Something went wrong";
-            seterrormsg(response);
-            setloading(false);
-            // window.location.reload();
-            // toast(false, response);
-          }
+          });
+          suggestionsList.appendChild(li);
         });
-        suggestionsList.appendChild(li);
-      });
 
-      suggestionsList.style.display = "block";
-    } else {
-      suggestionsList.style.display = "none";
-    }
-
-
-      
+        suggestionsList.style.display = "block";
+      } else {
+        suggestionsList.style.display = "none";
+      }
     } catch (error) {
       window.location.reload();
     }
-
-    
   }
 
   function openRightNav() {
@@ -338,14 +330,62 @@ const Navbar = () => {
                             Sign In
                           </a>
                         </li>
+
                         <li>
-                          <a href="#">
+                          <a className="cart" href="#">
                             <i
                               className="fa fa-shopping-cart"
                               aria-hidden="true"
                             />{" "}
                             Cart
                           </a>
+                          <div className="cart-wrapper">
+                            <div className="checkout-wrap">
+                              <div className="product-wrap">
+                                <div className="p-img">
+                                  <img
+                                    src="image/logo.png"
+                                    width={50}
+                                    height={50}
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="p-text">
+                                  <h4>Subway</h4>
+                                  <p>
+                                    <small>Central Kolkata</small>
+                                  </p>
+                                  <a href="#">VIEW FULL MENU</a>
+                                </div>
+                              </div>
+                              <hr />
+                              <div className="product-details">
+                                <div className="pro-name">
+                                  <p>
+                                    <small>
+                                      Bombay Grill Sandwich + Side +{" "}
+                                    </small>
+                                  </p>
+                                  <p className="price">
+                                    <small>508.80</small>
+                                  </p>
+                                </div>
+                              </div>
+                              <hr />
+                              <div className="cost-wrap">
+                                <div className="sub-total">
+                                  <h5>Sub total</h5>
+                                  <small>Extra charges may apply</small>
+                                </div>
+                                <div className="price">
+                                  <p>
+                                    <span> $ </span> 508.80
+                                  </p>
+                                </div>
+                              </div>
+                              <button>checkout</button>
+                            </div>
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -489,10 +529,7 @@ const Navbar = () => {
 
             {!loginFormShow && (
               <>
-                <div
-                  className="login"
-                  id="signupSection"
-                >
+                <div className="login" id="signupSection">
                   <h4>Sign up</h4>
                   <p>
                     or{" "}
@@ -506,13 +543,9 @@ const Navbar = () => {
                   <hr />
                 </div>
 
-                <form
-                  onSubmit={handleSubmitSignUp}
-                  id="signupForm"
-                >
+                <form onSubmit={handleSubmitSignUp} id="signupForm">
                   {!showOtpForm ? (
                     <>
-                      
                       <input type="hidden" name="f_name" value={fname} />
                       <input type="hidden" name="l_name" value={lname} />
 
