@@ -15,6 +15,8 @@ const cartReducer = createSlice({
   initialState,
   reducers: {
     cincrement: (state, action) => {
+
+      console.log(`state`, action);
       const newState = state && state?.filter((value) => value?.id);
       const cartProduct = newState.map((product) => ({
         ...product,

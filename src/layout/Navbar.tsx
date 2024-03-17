@@ -96,7 +96,7 @@ const Navbar = () => {
               );
 
               if (data.status == "OK") {
-                dispatch(storeData(''))
+                dispatch(storeData([]))
                 dispatch(place_api_details_rdx(data));
                 await fetchData(
                   data?.result?.geometry?.location.lat,
@@ -264,7 +264,7 @@ const Navbar = () => {
 
   return (
     <header className="header">
-      <div className="container">
+      <div className="container custom-max-width">
         <div className="row">
           <nav id="navbar" className="navbar navbar-custom">
             <div className="row">
@@ -334,14 +334,62 @@ const Navbar = () => {
                             Sign In
                           </a>
                         </li>
+
                         <li>
-                          <a href="#">
+                          <a className="cart" href="#">
                             <i
                               className="fa fa-shopping-cart"
                               aria-hidden="true"
                             />{" "}
                             Cart
                           </a>
+                          <div className="cart-wrapper">
+                            <div className="checkout-wrap">
+                              <div className="product-wrap">
+                                <div className="p-img">
+                                  <img
+                                    src="image/logo.png"
+                                    width={50}
+                                    height={50}
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="p-text">
+                                  <h4>Subway</h4>
+                                  <p>
+                                    <small>Central Kolkata</small>
+                                  </p>
+                                  <a href="#">VIEW FULL MENU</a>
+                                </div>
+                              </div>
+                              <hr />
+                              <div className="product-details">
+                                <div className="pro-name">
+                                  <p>
+                                    <small>
+                                      Bombay Grill Sandwich + Side +{" "}
+                                    </small>
+                                  </p>
+                                  <p className="price">
+                                    <small>508.80</small>
+                                  </p>
+                                </div>
+                              </div>
+                              <hr />
+                              <div className="cost-wrap">
+                                <div className="sub-total">
+                                  <h5>Sub total</h5>
+                                  <small>Extra charges may apply</small>
+                                </div>
+                                <div className="price">
+                                  <p>
+                                    <span> $ </span> 508.80
+                                  </p>
+                                </div>
+                              </div>
+                              <button>checkout</button>
+                            </div>
+                          </div>
                         </li>
                       </ul>
                     </div>

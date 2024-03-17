@@ -81,8 +81,10 @@ export default function CustomModal({
                         ["price"]: Number(data.price),
                       };
 
-                      dispatch(cincrement(items));
+                      console.log(`items`, items);
                       toast(true, 'product added to cart' );
+                      dispatch(cincrement(items));
+                      
                     }}
                     color="success"
                   >

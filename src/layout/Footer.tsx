@@ -42,7 +42,7 @@ export default function Footer() {
 
   const fetchData = async (lat: any, lng: any) => {
 
-    dispatch(storeData(''))
+    dispatch(storeData([]))
     const zone: any = await get_zone_id(lat, lng);
     dispatch(get_zone_id_rdx(zone?.data));
 

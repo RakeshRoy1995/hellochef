@@ -156,7 +156,7 @@ button.login-btn {
 .center-text{text-align: center;}
 img{max-width:100%; height: auto;}
 .float-right {float: right;}
-.header {box-shadow: 0 15px 40px -20px rgba(40,44,63,.15);overflow: hidden;position: sticky;top: 0;z-index: 1071;background: #fff;}
+.header {box-shadow: 0 15px 40px -20px rgba(40,44,63,.15);position: sticky;top: 0;z-index: 1071;background: #fff;}
 .section {padding:  50px 0}
 .header .navbar-nav>li>a {font-size: 16px;font-weight: 500;color: #3d4152;}
 .navbar-toggle {border: 1px solid #ffa700;}
@@ -265,6 +265,92 @@ border-radius: 16px;
 }
 .container.custom-max-width {
     max-width: 80%;
+}
+
+.checkout-wrap {
+    box-sizing: border-box;
+    width: auto;
+    z-index: 1;
+    top: 100%;
+    border-radius: 2px;
+    padding: 26px 30px;
+    background-color: #fff;
+    border-top: 2px solid #fc8019;
+    box-shadow: 0 2px 20px 0 #93959f;
+}
+.product-wrap {
+    display: flex;
+}
+.p-img {width: 45%;}
+
+.p-img img {
+    width: 70px;
+    height: 70px;
+    display: block;
+    object-fit: cover;
+}
+
+.checkout-wrap {
+}
+.p-text {
+    text-align: left;
+}
+.p-text h4 {padding-bottom: 0;}
+.p-text h4 + p {margin-bottom: 5px;}
+.p-text a {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #5d8ed5;
+    cursor: pointer;}
+.pro-name {
+    display: flex;
+    align-items: center;
+}
+ .cost-wrap {
+    display: flex;
+}
+.sub-total {
+    display: block;
+    text-align: left;
+}
+.sub-total h5 {
+    margin: 0;
+    padding: 0;
+}
+
+.checkout-wrap button {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    background: #fc8019;
+    margin-bottom: 4px;
+    font-weight: 600;
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    transition: transform .8s cubic-bezier(.2,1,.2,1);
+}
+.cart-wrapper {
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    overflow: visible;
+    opacity: 0;
+}
+.cart:hover + .cart-wrapper  {opacity:  1}
+.cart-wrapper {
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    overflow: visible;
+    opacity: 0;
+    width: 350px;
+    transition:  all 500ms;
 }
 
 /* ==========================================================================
