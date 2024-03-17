@@ -12,8 +12,8 @@ export default function RecommendedEats() {
             <div className="delivery">
               <h3>
                 Recommended eats in{" "}
-                {category_data?.place_api_details?.result?.formatted_address ||
-                  category_data?.get_zone_id?.zone_data[0]?.country}
+                {category_data?.get_zone_id?.zone_data[0]?.country || category_data?.place_api_details?.result?.formatted_address
+                  }
               </h3>
             </div>
           </div>

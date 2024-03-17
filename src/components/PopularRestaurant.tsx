@@ -16,9 +16,8 @@ export default function PopularRestaurant() {
                 <div className="col-xs-12 col-sm-6 col-md-6">
                   <h3>
                     Popular restaurant in{" "}
-                    {category_data?.place_api_details?.result
-                      ?.formatted_address ||
-                      category_data?.get_zone_id?.zone_data[0]?.country}
+                    {category_data?.get_zone_id?.zone_data[0]?.country || category_data?.place_api_details?.result
+                      ?.formatted_address }
                   </h3>
                 </div>
                 <div className="col-xs-12 col-sm-6 col-md-6">

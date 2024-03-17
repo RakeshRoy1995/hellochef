@@ -38,6 +38,7 @@ import {
   restaurants_latest_rdx,
 } from "../redux/PlaceReducer";
 import { toast } from "../utils/utils";
+import { storeData } from "../redux/cartReducer";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -78,67 +79,60 @@ const Navbar = () => {
   };
 
   function displaySuggestions(suggestions: any) {
-    
     try {
-
-
       const suggestionsList: any = document.getElementById("suggestionsList");
-    suggestionsList.innerHTML = "";
-    suggestionsList.style.display = "block";
-    if (suggestions.length > 0) {
-      suggestions.forEach((suggestion: any) => {
-        const li = document.createElement("li");
-        li.textContent = suggestion?.description;
-        li.addEventListener("click", async function () {
-          try {
-            setloading(true);
-            seterrormsg("");
-            const { data }: any = await place_api_details(suggestion?.place_id);
-
-            if (data.status == "OK") {
-              dispatch(place_api_details_rdx(data));
-              await fetchData(
-                data?.result?.geometry?.location.lat,
-                data?.result?.geometry?.location.lng
+      suggestionsList.innerHTML = "";
+      suggestionsList.style.display = "block";
+      if (suggestions.length > 0) {
+        suggestions.forEach((suggestion: any) => {
+          const li = document.createElement("li");
+          li.textContent = suggestion?.description;
+          li.addEventListener("click", async function () {
+            try {
+              setloading(true);
+              seterrormsg("");
+              const { data }: any = await place_api_details(
+                suggestion?.place_id
               );
 
-              const el: any = document.getElementById("mySidebar");
-              el.style.width = "0";
-              const el_2: any = document.getElementById("overlay");
-              el_2.style.display = "none";
+              if (data.status == "OK") {
+                dispatch(storeData(''))
+                dispatch(place_api_details_rdx(data));
+                await fetchData(
+                  data?.result?.geometry?.location.lat,
+                  data?.result?.geometry?.location.lng
+                );
+
+                const el: any = document.getElementById("mySidebar");
+                el.style.width = "0";
+                const el_2: any = document.getElementById("overlay");
+                el_2.style.display = "none";
+              }
+              setloading(false);
+              window.location.reload();
+
+              suggestionsList.style.display = "none";
+            } catch (error: any) {
+              console.log(`error`, error?.response);
+              const response: any =
+                error?.response?.data?.errors[0]?.message ||
+                "Something went wrong";
+              seterrormsg(response);
+              setloading(false);
+              // window.location.reload();
+              // toast(false, response);
             }
-            setloading(false);
-            window.location.reload();
-
-            suggestionsList.style.display = "none";
-          } catch (error: any) {
-
-
-            console.log(`error`, error?.response);
-            const response: any =
-              error?.response?.data?.errors[0]?.message ||
-              "Something went wrong";
-            seterrormsg(response);
-            setloading(false);
-            // window.location.reload();
-            // toast(false, response);
-          }
+          });
+          suggestionsList.appendChild(li);
         });
-        suggestionsList.appendChild(li);
-      });
 
-      suggestionsList.style.display = "block";
-    } else {
-      suggestionsList.style.display = "none";
-    }
-
-
-      
+        suggestionsList.style.display = "block";
+      } else {
+        suggestionsList.style.display = "none";
+      }
     } catch (error) {
       window.location.reload();
     }
-
-    
   }
 
   function openRightNav() {
@@ -294,9 +288,11 @@ const Navbar = () => {
                     <div className="other">
                       <a className="openbtn" onClick={(e: any) => openNav()}>
                         {" "}
-                        {place_data?.place_api_details?.result
-                          ?.formatted_address ||
-                          place_data?.get_zone_id?.zone_data[0]?.country}{" "}
+                        {  
+                        place_data?.get_zone_id?.zone_data[0]
+                        ?.country ||
+                        place_data?.place_api_details?.result
+                          ?.formatted_address }{" "}
                         <i className="fa fa-angle-down" aria-hidden="true" />
                       </a>
                     </div>
@@ -489,10 +485,7 @@ const Navbar = () => {
 
             {!loginFormShow && (
               <>
-                <div
-                  className="login"
-                  id="signupSection"
-                >
+                <div className="login" id="signupSection">
                   <h4>Sign up</h4>
                   <p>
                     or{" "}
@@ -506,13 +499,9 @@ const Navbar = () => {
                   <hr />
                 </div>
 
-                <form
-                  onSubmit={handleSubmitSignUp}
-                  id="signupForm"
-                >
+                <form onSubmit={handleSubmitSignUp} id="signupForm">
                   {!showOtpForm ? (
                     <>
-                      
                       <input type="hidden" name="f_name" value={fname} />
                       <input type="hidden" name="l_name" value={lname} />
 

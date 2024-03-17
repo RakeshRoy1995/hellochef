@@ -16,7 +16,7 @@ export default function Products({ product_data, base_url }: any) {
     <>
       <Slider {...slick_multiple_breakdown_settings}>
         {product_data?.map((data: any, key: any) => (
-          <div className="item" key={key}>
+          <div className="item curson_point" key={key}>
             <div
               className="recipe-chain popular-recipe"
               onClick={(e: any) => {
