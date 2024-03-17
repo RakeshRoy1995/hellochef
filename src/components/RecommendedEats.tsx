@@ -20,12 +20,14 @@ export default function RecommendedEats() {
         </div>
 
         <div className="row">
-          <Products
-            product_data={category_data?.products_most_reviewed?.products}
-            base_url={
-              category_data?.get_default_config?.base_urls?.product_image_url
-            }
-          />
+          <div className="col-md-12">
+            <Products
+              product_data={category_data?.products_most_reviewed?.products}
+              base_url={
+                category_data?.get_default_config?.base_urls?.product_image_url
+              }
+            />
+          </div>
         </div>
       </div>
     </section>
