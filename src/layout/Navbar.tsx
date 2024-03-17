@@ -262,7 +262,7 @@ const Navbar = () => {
 
   return (
     <header className="header">
-      <div className="container">
+      <div className="container custom-max-width">
         <div className="row">
           <nav id="navbar" className="navbar navbar-custom">
             <div className="row">
