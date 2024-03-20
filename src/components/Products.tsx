@@ -63,6 +63,7 @@ export default function Products({ product_data, base_url }: any) {
       {data && (
         <CustomModal
           data={data}
+          setdata={setdata}
           base_url={base_url}
           handleOpen={handleOpen}
           handleClose={handleClose}

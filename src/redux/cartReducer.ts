@@ -77,7 +77,7 @@ const cartReducer = createSlice({
         return [...state];
       }
     },
-    commonAction: (state, action) => {
+    commonAction: (state:any, action) => {
       state.value = action.payload;
     },
     cremove: (state, action) => {

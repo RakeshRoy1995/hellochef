@@ -18,10 +18,7 @@ import {
   varifyOTP,
 } from "../Request";
 import "react-phone-number-input/style.css";
-import PhoneInput, {
-  formatPhoneNumber,
-  formatPhoneNumberIntl,
-} from "react-phone-number-input";
+import PhoneInput from "react-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import {
   banner_rdx,
@@ -36,9 +33,15 @@ import {
   products_popular_rdx,
   restaurant_popular_rdx,
   restaurants_latest_rdx,
+  storePlaceData,
 } from "../redux/PlaceReducer";
 import { toast } from "../utils/utils";
 import { storeData } from "../redux/cartReducer";
+import CurrencySymbol from "../components/CurrencySymbol";
+import ShowPlace from "../customComponents/ShowPlace";
+
+import { loading_rdx } from "../redux/loading";
+import Loader from "./Loader";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -52,6 +55,8 @@ const Navbar = () => {
   const [value, setValue] = useState<any>("");
 
   const place_data = useSelector((state: any) => state?.place);
+  const carts = useSelector((state: any) => state?.carts);
+  const loadingSpin = useSelector((state: any) => state?.loading?.value);
 
   function openNav() {
     document.getElementById("mySidebar").style.width = "60vh";
@@ -90,13 +95,18 @@ const Navbar = () => {
           li.addEventListener("click", async function () {
             try {
               setloading(true);
+              let v :any= {
+                val : 1
+              }
+              
+              dispatch(loading_rdx(v));
               seterrormsg("");
               const { data }: any = await place_api_details(
                 suggestion?.place_id
               );
 
               if (data.status == "OK") {
-                dispatch(storeData([]))
+                dispatch(storeData([]));
                 dispatch(place_api_details_rdx(data));
                 await fetchData(
                   data?.result?.geometry?.location.lat,
@@ -108,6 +118,10 @@ const Navbar = () => {
                 const el_2: any = document.getElementById("overlay");
                 el_2.style.display = "none";
               }
+               v = {
+                val : 0
+              }
+              dispatch(loading_rdx(v));
               setloading(false);
               window.location.reload();
 
@@ -118,6 +132,14 @@ const Navbar = () => {
                 error?.response?.data?.errors[0]?.message ||
                 "Something went wrong";
               seterrormsg(response);
+
+              dispatch(storePlaceData({}));
+
+              const  v :any = {
+                val : 0
+              }
+              dispatch(loading_rdx(v));
+
               setloading(false);
               // window.location.reload();
               // toast(false, response);
@@ -264,7 +286,7 @@ const Navbar = () => {
 
   return (
     <header className="header">
-      <div className="container custom-max-width">
+      <div className="container">
         <div className="row">
           <nav id="navbar" className="navbar navbar-custom">
             <div className="row">
@@ -288,11 +310,7 @@ const Navbar = () => {
                     <div className="other">
                       <a className="openbtn" onClick={(e: any) => openNav()}>
                         {" "}
-                        {  
-                        place_data?.get_zone_id?.zone_data[0]
-                        ?.country ||
-                        place_data?.place_api_details?.result
-                          ?.formatted_address }{" "}
+                        <ShowPlace />{" "}
                         <i className="fa fa-angle-down" aria-hidden="true" />
                       </a>
                     </div>
@@ -357,24 +375,31 @@ const Navbar = () => {
                                 <div className="p-text">
                                   <h4>Subway</h4>
                                   <p>
-                                    <small>Central Kolkata</small>
+                                    <small>
+                                      <ShowPlace />{" "}
+                                    </small>
                                   </p>
                                   <a href="#">VIEW FULL MENU</a>
                                 </div>
                               </div>
                               <hr />
-                              <div className="product-details">
-                                <div className="pro-name">
-                                  <p>
-                                    <small>
-                                      Bombay Grill Sandwich + Side +{" "}
-                                    </small>
-                                  </p>
-                                  <p className="price">
-                                    <small>508.80</small>
-                                  </p>
+
+                              {carts.map((data: any, key: number) => (
+                                <div className="product-details">
+                                  <div className="pro-name">
+                                    <p>
+                                      <small>{data?.name} :</small>
+                                    </p>
+                                    <p className="price">
+                                      <small>
+                                        {data?.price} * {data?.total_qty} ={" "}
+                                        {data?.total_price} <CurrencySymbol />{" "}
+                                      </small>
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
+                              ))}
+
                               <hr />
                               <div className="cost-wrap">
                                 <div className="sub-total">
@@ -383,7 +408,17 @@ const Navbar = () => {
                                 </div>
                                 <div className="price">
                                   <p>
-                                    <span> $ </span> 508.80
+                                    <span>
+                                      <CurrencySymbol />{" "}
+                                    </span>{" "}
+                                    {carts.reduce(
+                                      (
+                                        accumulator: number,
+                                        currentValue: any
+                                      ) =>
+                                        accumulator + currentValue.total_price,
+                                      0
+                                    )}
                                   </p>
                                 </div>
                               </div>
@@ -685,6 +720,7 @@ const Navbar = () => {
       </div>
 
       <div className="right-overlay" id="rightOverlay" />
+      <Loader />
     </header>
   );
 };

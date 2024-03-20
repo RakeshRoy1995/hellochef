@@ -8,6 +8,9 @@ const PlaceReducer = createSlice({
   name: "place",
   initialState,
   reducers: {
+    storePlaceData: (state, action) => {
+      return action.payload;
+    },
     place_api_details_rdx: (state: any, action: any) => {
       state.place_api_details = action.payload;
     },
@@ -71,5 +74,6 @@ export const {
   products_popular_rdx,
   get_default_config_rdx,
   restaurant_popular_rdx,
-  cuisines_rdx
+  cuisines_rdx,
+  storePlaceData
 } = PlaceReducer.actions;
