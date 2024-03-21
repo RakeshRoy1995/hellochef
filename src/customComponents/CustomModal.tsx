@@ -8,11 +8,14 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Radio from "@mui/joy/Radio";
 import CurrencySymbol from "../components/CurrencySymbol";
-import { useDispatch } from "react-redux";
-import { cincrement } from "../redux/cartReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { cdecrement, cincrement } from "../redux/cartReducer";
 import { toast } from "../utils/utils";
 import { useState } from "react";
-import { RadioGroup } from "@mui/material";
+import { FormControlLabel, RadioGroup } from "@mui/material";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Checkbox from "@mui/material/Checkbox";
+import ShowPrice from "./ShowPrice";
 
 const style = {
   position: "absolute" as "absolute",
@@ -35,16 +38,17 @@ export default function CustomModal({
 }: any) {
   const dispatch = useDispatch();
   const [selectedValue, setSelectedValue] = useState("0");
+  const [addonsQty, setaddonsQty] = useState<any>({});
   const [selectedValueaddons, setSelectedValueaddons] = useState("0");
+  const carts = useSelector((state: any) => state?.carts);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    datas: any
+  ) => {
     console.log(``);
     setSelectedValue(event.target.value);
-
-    console.log(`event.target.value`, event.target.value);
-
     const price = event.target.value.split("Price :")[1];
-
     setdata({
       ...data,
       ["selectedVariant"]: event.target.value,
@@ -52,22 +56,48 @@ export default function CustomModal({
     });
   };
 
-  const handleChangeAddons = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValueaddons(event.target.value);
+  const handleChangeAddons = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    vdata: any,
+    type: string
+  ) => {
+    if (type == "+") {
+      const qty = Number(addonsQty[vdata.id]?.qty || 0) + 1;
+      const collection = {
+        ...vdata,
+        ["qty"]: qty,
+      };
 
-    console.log(`event.target.value`, event.target.value);
+      const toUpdate: any = { ...addonsQty, [vdata.id]: collection };
 
-    const price =
-      Number(event.target.value.split("Price :")[1]) + Number(data.price);
+      setaddonsQty(toUpdate);
+      setdata({ ...data, ["addons_selected"]: toUpdate });
+    } else {
+      const qty = Number(addonsQty[vdata.id]?.qty || 0) - 1;
 
-    setdata({
-      ...data,
-      ["selectedAddons"]: event.target.value,
-      ["price"]: Number(price),
-    });
+      if (qty >= 0) {
+        const collection = {
+          ...vdata,
+          ["qty"]: qty,
+        };
+
+        const toUpdate: any = { ...addonsQty, [vdata.id]: collection };
+
+        setaddonsQty(toUpdate);
+        setdata({ ...data, ["addons_selected"]: toUpdate });
+      }
+    }
   };
 
-  console.log(`data`, data, selectedValue);
+  const decrementHandler = (id) => {
+    const filterValue = carts.find((value) => value.id === id);
+    // dispatch(decrement(value));
+    dispatch(cdecrement(filterValue));
+  };
+
+  const cart = carts.find((element) => element.id === data.id);
+
+  console.log(`data`, data);
 
   return (
     <div>
@@ -89,7 +119,11 @@ export default function CustomModal({
           <Box sx={style}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <img src={base_url + "/" + data?.image} width={390} alt="" />
+                <img
+                  src={base_url + "/" + data?.image}
+                  style={{ width: "10%", maxHeight: "370px" }}
+                  alt=""
+                />
               </Grid>
               <Grid item xs={6}>
                 <Typography
@@ -102,25 +136,57 @@ export default function CustomModal({
                 <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                   {data?.description}
                 </Typography>
-                <CurrencySymbol /> {data?.price}
+                 <ShowPrice data={data} />
                 <p>{data?.restaurant_name}</p>
                 <Stack spacing={2} direction="row">
-                  <Button
-                    variant="contained"
-                    onClick={(e) => {
-                      const items = {
-                        ...data,
-                        ["total_iteam"]: 1,
-                        ["price"]: Number(data.price),
-                      };
+                  {carts.length > 0 &&
+                  carts.find((element) => element.id === data.id) ? (
+                    <ButtonGroup
+                      variant="outlined"
+                      aria-label="Basic button group"
+                    >
+                      <Button
+                        onClick={() => decrementHandler(data.id)}
+                        disabled={cart?.total_qty <= 1 ? true : false}
+                      >
+                        -
+                      </Button>
+                      <Button>{cart?.total_qty}</Button>
+                      <Button
+                        variant="outlined"
+                        onClick={(e) => {
 
-                      dispatch(cincrement(items));
-                      toast(true, "product added to cart");
-                    }}
-                    color="success"
-                  >
-                    Add to cart
-                  </Button>
+                          const items = {
+                            ...data,
+                            ["total_iteam"]: 1,
+                            ["price"]: Number(data.price),
+                          };
+
+                          dispatch(cincrement(items));
+                          toast(true, "product added to cart");
+                        }}
+                      >
+                        +
+                      </Button>
+                    </ButtonGroup>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={(e) => {
+                        const items = {
+                          ...data,
+                          ["total_iteam"]: 1,
+                          ["price"]: Number(data.price),
+                        };
+
+                        dispatch(cincrement(items));
+                        toast(true, "product added to cart");
+                      }}
+                      color="warning"
+                    >
+                      Add to cart
+                    </Button>
+                  )}
                 </Stack>
               </Grid>
 
@@ -134,7 +200,7 @@ export default function CustomModal({
                           selectedValue ==
                           vdata?.type + " Price :" + vdata?.price
                         }
-                        onChange={handleChange}
+                        onChange={(e: any) => handleChange(e, vdata)}
                         label={vdata?.type + " Price: " + vdata?.price}
                         size="md"
                         key={key}
@@ -150,22 +216,48 @@ export default function CustomModal({
                     >
                       Add Extra item
                     </Typography>
-                    <Box sx={{ display: "flex", gap: 2 }}>
-                      <RadioGroup name="addons">
-                        {data?.add_ons.map((vdata: any, key: number) => (
-                          <Radio
-                            value={vdata?.name + " Price :" + vdata?.price}
-                            checked={
-                              selectedValueaddons ==
-                              vdata?.name + " Price :" + vdata?.price
-                            }
-                            onChange={handleChangeAddons}
-                            label={vdata?.name + " Price: " + vdata?.price}
-                            size="md"
-                            key={key}
-                          />
-                        ))}
-                      </RadioGroup>
+                    <Box sx={{ gap: 2 }}>
+                      {data?.add_ons.map((vdata: any, key: number) => (
+                        <>
+                          
+
+                          <ButtonGroup
+                            variant="outlined"
+                            aria-label="Basic button group"
+                          >
+                            <Typography sx={{ mx: 1 }}>
+                            {vdata?.name + " Price: " + vdata?.price}
+                          </Typography>
+                            <Button
+                              variant="outlined"
+                              // color="error"
+                              size="small"
+                              onClick={(e: any) =>
+                                handleChangeAddons(e, vdata, "-")
+                              }
+                            >
+                              {" "}
+                              -{" "}
+                            </Button>
+
+                            <Button>
+                              {" "}
+                              {data?.addons_selected && data?.addons_selected[vdata?.id]?.qty || 0}{" "}
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              // color="success"
+                              size="small"
+                              onClick={(e: any) =>
+                                handleChangeAddons(e, vdata, "+")
+                              }
+                            >
+                              {" "}
+                              +{" "}
+                            </Button>
+                          </ButtonGroup>
+                        </>
+                      ))}
                     </Box>
                   </>
                 )}

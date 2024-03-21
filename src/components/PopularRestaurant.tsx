@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import { slick_multiple_breakdown_settings } from "../utils/utils";
 import { useSelector } from "react-redux";
 import Restaurant from "./Restaurant";
+import ShowPlace from "../customComponents/ShowPlace";
 
 export default function PopularRestaurant() {
   const category_data: any = useSelector((state: any) => state?.place);
@@ -16,8 +17,7 @@ export default function PopularRestaurant() {
                 <div className="col-xs-12 col-sm-6 col-md-6">
                   <h3>
                     Popular restaurant in{" "}
-                    {category_data?.get_zone_id?.zone_data[0]?.country || category_data?.place_api_details?.result
-                      ?.formatted_address }
+                    <ShowPlace />
                   </h3>
                 </div>
                 <div className="col-xs-12 col-sm-6 col-md-6">

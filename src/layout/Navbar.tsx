@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import Badge, { BadgeProps } from "@mui/material/Badge";
+import { styled } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   banners_api,
   campaign_api,
@@ -35,13 +39,19 @@ import {
   restaurants_latest_rdx,
   storePlaceData,
 } from "../redux/PlaceReducer";
-import { toast } from "../utils/utils";
+import { showGrandTotalInCart, showTotalInCart, toast } from "../utils/utils";
 import { storeData } from "../redux/cartReducer";
 import CurrencySymbol from "../components/CurrencySymbol";
 import ShowPlace from "../customComponents/ShowPlace";
 
 import { loading_rdx } from "../redux/loading";
 import Loader from "./Loader";
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    border: `2px solid #fff`,
+  },
+}));
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -56,7 +66,7 @@ const Navbar = () => {
 
   const place_data = useSelector((state: any) => state?.place);
   const carts = useSelector((state: any) => state?.carts);
-  const loadingSpin = useSelector((state: any) => state?.loading?.value);
+  
 
   function openNav() {
     document.getElementById("mySidebar").style.width = "60vh";
@@ -95,10 +105,10 @@ const Navbar = () => {
           li.addEventListener("click", async function () {
             try {
               setloading(true);
-              let v :any= {
-                val : 1
-              }
-              
+              let v: any = {
+                val: 1,
+              };
+
               dispatch(loading_rdx(v));
               seterrormsg("");
               const { data }: any = await place_api_details(
@@ -118,9 +128,9 @@ const Navbar = () => {
                 const el_2: any = document.getElementById("overlay");
                 el_2.style.display = "none";
               }
-               v = {
-                val : 0
-              }
+              v = {
+                val: 0,
+              };
               dispatch(loading_rdx(v));
               setloading(false);
               window.location.reload();
@@ -135,9 +145,9 @@ const Navbar = () => {
 
               dispatch(storePlaceData({}));
 
-              const  v :any = {
-                val : 0
-              }
+              const v: any = {
+                val: 0,
+              };
               dispatch(loading_rdx(v));
 
               setloading(false);
@@ -355,10 +365,18 @@ const Navbar = () => {
 
                         <li>
                           <a className="cart" href="#">
-                            <i
-                              className="fa fa-shopping-cart"
-                              aria-hidden="true"
-                            />{" "}
+                            {carts.length > 0 && (
+                              <IconButton aria-label="cart">
+                                <StyledBadge
+                                  badgeContent={
+                                    carts.length > 0 ? carts.length : ""
+                                  }
+                                  color={"warning"}
+                                >
+                                  <ShoppingCartIcon />
+                                </StyledBadge>
+                              </IconButton>
+                            )}{" "}
                             Cart
                           </a>
                           <div className="cart-wrapper">
@@ -392,8 +410,11 @@ const Navbar = () => {
                                     </p>
                                     <p className="price">
                                       <small>
-                                        {data?.price} * {data?.total_qty} ={" "}
-                                        {data?.total_price} <CurrencySymbol />{" "}
+                                      <CurrencySymbol />{" "}
+                                        {
+                                          showTotalInCart(data)
+                                        }
+                                         
                                       </small>
                                     </p>
                                   </div>
@@ -411,14 +432,11 @@ const Navbar = () => {
                                     <span>
                                       <CurrencySymbol />{" "}
                                     </span>{" "}
-                                    {carts.reduce(
-                                      (
-                                        accumulator: number,
-                                        currentValue: any
-                                      ) =>
-                                        accumulator + currentValue.total_price,
-                                      0
-                                    )}
+
+                                    {
+                                      showGrandTotalInCart(carts)
+                                    }
+                                    
                                   </p>
                                 </div>
                               </div>

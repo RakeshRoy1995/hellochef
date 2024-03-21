@@ -3,15 +3,16 @@
 import cogoToast from "cogo-toast";
 import { useSelector } from "react-redux";
 
-
 export const Validation = (
   customInputValidationCheck = [],
   element = document
 ) => {
   let validate = true;
-  const collection :any = element.querySelectorAll("input ,  textarea , select");
+  const collection: any = element.querySelectorAll(
+    "input ,  textarea , select"
+  );
   for (let i = 0; i < collection.length; i++) {
-    let x : any = collection[i];
+    let x: any = collection[i];
 
     if (collection[i].name) {
       collection[i].style.border = "";
@@ -48,7 +49,7 @@ export const Validation = (
   return validate;
 };
 
-export const toast = (type :any, msg:any) => {
+export const toast = (type: any, msg: any) => {
   if (type === true) {
     cogoToast.success(msg, { position: "top-right" });
   }
@@ -58,7 +59,7 @@ export const toast = (type :any, msg:any) => {
   }
 };
 
-export const formatNumber = (number :any) => {
+export const formatNumber = (number: any) => {
   if (number) {
     if (number >= 1000000000) {
       return (number / 1000000000).toFixed(1) + "B";
@@ -70,11 +71,10 @@ export const formatNumber = (number :any) => {
       return number.toString();
     }
   }
-  
 };
 
 // export function timeSince(date:any) {
-  
+
 //   const seconds = Math.floor((new Date() - new Date(date) ) / 1000);
 
 //   let interval = seconds / 31536000;
@@ -100,7 +100,6 @@ export const formatNumber = (number :any) => {
 //   }
 //   return Math.floor(seconds) + " seconds";
 // }
-
 
 export const slick_multiple_breakdown_settings: any = {
   // dots: true,
@@ -137,15 +136,13 @@ export const slick_multiple_breakdown_settings: any = {
   ],
 };
 
-
-
 export const slick_multiple_breakdown_settings_cuisin: any = {
   // dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 9,
   slidesToScroll: 3,
-  initialSlide: 9,
+  initialSlide: 8,
   responsive: [
     {
       breakpoint: 1280, // New breakpoint starting from 1280px
@@ -184,77 +181,131 @@ export const slick_multiple_breakdown_settings_cuisin: any = {
   ],
 };
 
-
-export const sortingFunc = (data:any , key:any)=>{
-
+export const sortingFunc = (data: any, key: any) => {
   if (key == "RatingLow") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
     sortedRestaurants.sort((a, b) => {
-      const avgRatingA = typeof a.avg_rating === 'number' ? a.avg_rating : parseFloat(a.avg_rating);
-      const avgRatingB = typeof b.avg_rating === 'number' ? b.avg_rating : parseFloat(b.avg_rating);
+      const avgRatingA =
+        typeof a.avg_rating === "number"
+          ? a.avg_rating
+          : parseFloat(a.avg_rating);
+      const avgRatingB =
+        typeof b.avg_rating === "number"
+          ? b.avg_rating
+          : parseFloat(b.avg_rating);
       return avgRatingA - avgRatingB;
     });
 
-
-    return sortedRestaurants
+    return sortedRestaurants;
   }
 
   if (key == "RatingHigh") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
     sortedRestaurants.sort((a, b) => {
-      const avgRatingA = typeof a.avg_rating === 'number' ? a.avg_rating : parseFloat(a.avg_rating);
-      const avgRatingB = typeof b.avg_rating === 'number' ? b.avg_rating : parseFloat(b.avg_rating);
+      const avgRatingA =
+        typeof a.avg_rating === "number"
+          ? a.avg_rating
+          : parseFloat(a.avg_rating);
+      const avgRatingB =
+        typeof b.avg_rating === "number"
+          ? b.avg_rating
+          : parseFloat(b.avg_rating);
       return avgRatingB - avgRatingA;
     });
-    return sortedRestaurants
+    return sortedRestaurants;
   }
 
-
   if (key == "Fast Delivery") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
-    sortedRestaurants.sort((a:any, b:any) => {
+    sortedRestaurants.sort((a: any, b: any) => {
       const avgRatingA = a?.delivery_time.split("-")[0];
       const avgRatingB = b?.delivery_time.split("-")[0];
       return avgRatingA - avgRatingB;
     });
-    return sortedRestaurants
+    return sortedRestaurants;
   }
 
   if (key == "Offers") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
-    const olderThan4 = sortedRestaurants.filter(data => data?.discount?.discount > 0);
-    return olderThan4
+    const olderThan4 = sortedRestaurants.filter(
+      (data) => data?.discount?.discount > 0
+    );
+    return olderThan4;
   }
 
   if (key == "free delevery") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
-    const olderThan4 = sortedRestaurants.filter(data => data?.free_delivery);
-    return olderThan4
+    const olderThan4 = sortedRestaurants.filter((data) => data?.free_delivery);
+    return olderThan4;
   }
 
-
   if (key == "4") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
-    const olderThan4 = sortedRestaurants.filter(data => data.avg_rating >= 4);
-  
-    return olderThan4
+    const olderThan4 = sortedRestaurants.filter((data) => data.avg_rating >= 4);
+
+    return olderThan4;
   }
 
   if (key == "Pure Veg") {
-    const x = data
+    const x = data;
     const sortedRestaurants = [...x];
-    const olderThan4 = sortedRestaurants.filter(data => data.veg ==1 );
+    const olderThan4 = sortedRestaurants.filter((data) => data.veg == 1);
+
+    return olderThan4;
+  }
+
+  return [];
+};
+
+export const showTotalInCart = (data: any) => {
+  const addons = data?.addons_selected;
+
+  let addons_total: number = 0;
+  for (const property in addons) {
+    addons_total +=
+      Number(addons[property].qty) * Number(addons[property].price);
+  }
+
+  const subTotal = Number(data?.price) * Number(data?.total_qty);
+  const grand_total = subTotal + addons_total;
   
-    return olderThan4
+  let calculablePrice: number = 0;
+
+  if (data?.discount) {
+    if (data?.discount_type == "percent") {
+      calculablePrice =
+        Number(grand_total) - (Number(grand_total) * Number(data?.discount) /100) ;
+    } else {
+      calculablePrice = Number(grand_total) - Number(data?.discount);
+    }
   }
 
 
-return []
 
-}
+  return calculablePrice;
+};
+
+export const showGrandTotalInCart = (array: any) => {
+  let grand_total = 0;
+  for (let index = 0; index < array.length; index++) {
+    grand_total += showTotalInCart(array[index]);
+  }
+
+  return grand_total;
+};
+
+
+export const showPriceOfProduct = (array: any) => {
+  let grand_total = 0;
+  for (let index = 0; index < array.length; index++) {
+    grand_total += showTotalInCart(array[index]);
+  }
+
+  return grand_total;
+};

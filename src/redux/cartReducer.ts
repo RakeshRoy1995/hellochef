@@ -32,12 +32,13 @@ const cartReducer = createSlice({
           cartProduct[itemIndex].total_price +
           action.payload.price * action.payload.total_iteam;
         cartProduct[itemIndex].checkstatus = action.payload.checkstatus;
-        cartProduct[itemIndex].has_discount = action.payload.has_discount;
-        cartProduct[itemIndex].calculable_price =
-          action.payload.calculable_price;
+      
         cartProduct[itemIndex].price = action.payload.price;
         
         cartProduct[itemIndex].checkstatus = true;
+        cartProduct[itemIndex].addons_selected = action.payload.addons_selected;
+        cartProduct[itemIndex].selectedVariant = action.payload.selectedVariant;
+        
 
         return cartProduct;
       } else {
@@ -62,11 +63,11 @@ const cartReducer = createSlice({
         ...product,
       }));
       const itemIndexNo = cartProducts.findIndex(
-        (product) => product._id === action.payload._id
+        (product) => product.id === action.payload.id
       );
 
       if (cartProducts[itemIndexNo].total_qty === 1) {
-        return state.filter((product) => product._id !== action.payload._id);
+        return state.filter((product) => product.id !== action.payload.id);
       } else if (itemIndexNo > -1) {
         cartProducts[itemIndexNo].total_qty =
           cartProducts[itemIndexNo].total_qty - 1;

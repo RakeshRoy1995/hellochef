@@ -3,6 +3,7 @@ import { slick_multiple_breakdown_settings } from "../utils/utils";
 import CurrencySymbol from "./CurrencySymbol";
 import { useState } from "react";
 import CustomModal from "../customComponents/CustomModal";
+import ShowPrice from "../customComponents/ShowPrice";
 
 export default function Products({ product_data, base_url }: any) {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function Products({ product_data, base_url }: any) {
                   )}
                   <span className="span">
                     {" "}
-                    <CurrencySymbol /> {data?.price}{" "}
+                     <ShowPrice data={data} /> {" "}
                   </span>
                 </p>
 

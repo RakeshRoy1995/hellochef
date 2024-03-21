@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import Products from "./Products";
+import ShowPlace from "../customComponents/ShowPlace";
 
 export default function RecommendedEats() {
   const category_data: any = useSelector((state: any) => state?.place);
@@ -12,8 +13,7 @@ export default function RecommendedEats() {
             <div className="delivery">
               <h3>
                 Recommended eats in{" "}
-                {category_data?.get_zone_id?.zone_data[0]?.country || category_data?.place_api_details?.result?.formatted_address
-                  }
+                <ShowPlace />
               </h3>
             </div>
           </div>
