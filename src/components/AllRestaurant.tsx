@@ -2,8 +2,10 @@ import { useSelector } from "react-redux";
 import AllRestaurantComponent from "./AllRestaurantComponent";
 import { useState } from "react";
 import { sortingFunc } from "../utils/utils";
+import ContentLoader from "../layout/ContentLoader";
 export default function AllRestaurant() {
   const category_data: any = useSelector((state: any) => state?.place);
+  const loadingSpin = useSelector((state: any) => state?.loading?.value);
   const [data, setdata] = useState([]);
   
   const filters = ( value:any) =>{
@@ -14,21 +16,21 @@ export default function AllRestaurant() {
     if (data.length ) {
       setdata(data)
     }
-    
-
-    console.log(`value`,value );
-      
+     
   }
   return (
     <section className="delivery-wrapper mind-wrapper">
+      {loadingSpin?.val == "1" ? (
+          <ContentLoader />
+        ) : (
       <div className="container custom-max-width">
         <div className="row">
           <div className="col-md-12">
             <div className="delivery">
               <h3>
                 All restaurant in{" "}
-                {category_data?.place_api_details?.result?.formatted_address ||
-                  category_data?.get_zone_id?.zone_data[0]?.country}
+                {category_data?.get_zone_id?.zone_data[0]?.country || category_data?.place_api_details?.result?.formatted_address 
+                  }
               </h3>
               <div className="filter-wrap">
                 <ul>
@@ -95,6 +97,7 @@ export default function AllRestaurant() {
           </a>
         </div> */}
       </div>
+        )}
     </section>
   );
 }

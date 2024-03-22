@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import Badge, { BadgeProps } from "@mui/material/Badge";
+import { styled } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {
   banners_api,
   campaign_api,
@@ -18,10 +22,7 @@ import {
   varifyOTP,
 } from "../Request";
 import "react-phone-number-input/style.css";
-import PhoneInput, {
-  formatPhoneNumber,
-  formatPhoneNumberIntl,
-} from "react-phone-number-input";
+import PhoneInput from "react-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import {
   banner_rdx,
@@ -36,8 +37,21 @@ import {
   products_popular_rdx,
   restaurant_popular_rdx,
   restaurants_latest_rdx,
+  storePlaceData,
 } from "../redux/PlaceReducer";
-import { toast } from "../utils/utils";
+import { showGrandTotalInCart, showTotalInCart, toast } from "../utils/utils";
+import { storeData } from "../redux/cartReducer";
+import CurrencySymbol from "../components/CurrencySymbol";
+import ShowPlace from "../customComponents/ShowPlace";
+
+import { loading_rdx } from "../redux/loading";
+import Loader from "./Loader";
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    border: `2px solid #fff`,
+  },
+}));
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -51,6 +65,7 @@ const Navbar = () => {
   const [value, setValue] = useState<any>("");
 
   const place_data = useSelector((state: any) => state?.place);
+  const carts = useSelector((state: any) => state?.carts);
 
   function openNav() {
     document.getElementById("mySidebar").style.width = "60vh";
@@ -89,12 +104,18 @@ const Navbar = () => {
           li.addEventListener("click", async function () {
             try {
               setloading(true);
+              let v: any = {
+                val: 1,
+              };
+
+              dispatch(loading_rdx(v));
               seterrormsg("");
               const { data }: any = await place_api_details(
                 suggestion?.place_id
               );
 
               if (data.status == "OK") {
+                dispatch(storeData([]));
                 dispatch(place_api_details_rdx(data));
                 await fetchData(
                   data?.result?.geometry?.location.lat,
@@ -106,8 +127,12 @@ const Navbar = () => {
                 const el_2: any = document.getElementById("overlay");
                 el_2.style.display = "none";
               }
+              v = {
+                val: 0,
+              };
+              dispatch(loading_rdx(v));
               setloading(false);
-              window.location.reload();
+              // window.location.reload();
 
               suggestionsList.style.display = "none";
             } catch (error: any) {
@@ -116,6 +141,14 @@ const Navbar = () => {
                 error?.response?.data?.errors[0]?.message ||
                 "Something went wrong";
               seterrormsg(response);
+
+              dispatch(storePlaceData({}));
+
+              const v: any = {
+                val: 0,
+              };
+              dispatch(loading_rdx(v));
+
               setloading(false);
               // window.location.reload();
               // toast(false, response);
@@ -239,10 +272,22 @@ const Navbar = () => {
     dispatch(get_default_config_rdx(config_data?.data));
 
     if (!place_data?.get_default_config) {
+      let v: any = {
+        val: 1,
+      };
+
+      dispatch(loading_rdx(v));
+
       await fetchData(
         config_data?.data?.default_location?.lat,
         config_data?.data?.default_location?.lng
       );
+
+      v = {
+        val: 0,
+      };
+
+      dispatch(loading_rdx(v));
     }
   };
 
@@ -262,7 +307,7 @@ const Navbar = () => {
 
   return (
     <header className="header">
-      <div className="container custom-max-width">
+      <div className="container">
         <div className="row">
           <nav id="navbar" className="navbar navbar-custom">
             <div className="row">
@@ -286,9 +331,7 @@ const Navbar = () => {
                     <div className="other">
                       <a className="openbtn" onClick={(e: any) => openNav()}>
                         {" "}
-                        {place_data?.place_api_details?.result
-                          ?.formatted_address ||
-                          place_data?.get_zone_id?.zone_data[0]?.country}{" "}
+                        <ShowPlace />{" "}
                         <i className="fa fa-angle-down" aria-hidden="true" />
                       </a>
                     </div>
@@ -333,10 +376,14 @@ const Navbar = () => {
 
                         <li>
                           <a className="cart" href="#">
-                            <i
-                              className="fa fa-shopping-cart"
-                              aria-hidden="true"
-                            />{" "}
+                            <IconButton aria-label="cart">
+                              <StyledBadge
+                                badgeContent={carts.length || undefined}
+                                color={"warning"}
+                              >
+                                <ShoppingCartIcon />
+                              </StyledBadge>
+                            </IconButton>{" "}
                             Cart
                           </a>
                           <div className="cart-wrapper">
@@ -353,24 +400,52 @@ const Navbar = () => {
                                 <div className="p-text">
                                   <h4>Subway</h4>
                                   <p>
-                                    <small>Central Kolkata</small>
+                                    <small>
+                                      <ShowPlace />{" "}
+                                    </small>
                                   </p>
                                   <a href="#">VIEW FULL MENU</a>
                                 </div>
                               </div>
                               <hr />
-                              <div className="product-details">
-                                <div className="pro-name">
-                                  <p>
-                                    <small>
-                                      Bombay Grill Sandwich + Side +{" "}
-                                    </small>
-                                  </p>
-                                  <p className="price">
-                                    <small>508.80</small>
-                                  </p>
+
+                              {carts.map((data: any, key: number) => (
+                                <div>
+                                  <div className="product-details" key={key}>
+                                    <div className="pro-name">
+                                      <p>
+                                        <small>
+                                          {data?.name}
+
+                                          {/* {(() => {
+                                          if (data?.selectedVariant) {
+                                            return (
+                                              <small>
+                                                {"( "}
+                                                {
+                                                  data?.selectedVariant.split(
+                                                    " Price"
+                                                  )[0]
+                                                }{") "}
+                                              </small>
+                                            );
+                                          }
+                                        })()} */}
+                                        </small>
+                                      </p>
+
+                                      <p className="price">
+                                        <small>
+                                          <CurrencySymbol />
+                                          {" :"}
+                                          {showTotalInCart(data)}
+                                        </small>
+                                      </p>
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
+                              ))}
+
                               <hr />
                               <div className="cost-wrap">
                                 <div className="sub-total">
@@ -379,7 +454,10 @@ const Navbar = () => {
                                 </div>
                                 <div className="price">
                                   <p>
-                                    <span> $ </span> 508.80
+                                    <span>
+                                      <CurrencySymbol />{" "}
+                                    </span>{" "}
+                                    {showGrandTotalInCart(carts)}
                                   </p>
                                 </div>
                               </div>
@@ -681,6 +759,7 @@ const Navbar = () => {
       </div>
 
       <div className="right-overlay" id="rightOverlay" />
+      <Loader />
     </header>
   );
 };

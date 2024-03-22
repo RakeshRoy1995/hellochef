@@ -3,6 +3,7 @@ import { slick_multiple_breakdown_settings } from "../utils/utils";
 import CurrencySymbol from "./CurrencySymbol";
 import { useState } from "react";
 import CustomModal from "../customComponents/CustomModal";
+import ShowPrice from "../customComponents/ShowPrice";
 
 export default function Products({ product_data, base_url }: any) {
   const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Products({ product_data, base_url }: any) {
     <>
       <Slider {...slick_multiple_breakdown_settings}>
         {product_data?.map((data: any, key: any) => (
-          <div className="item" key={key}>
+          <div className="item curson_point" key={key}>
             <div
               className="recipe-chain popular-recipe"
               onClick={(e: any) => {
@@ -49,7 +50,7 @@ export default function Products({ product_data, base_url }: any) {
                   )}
                   <span className="span">
                     {" "}
-                    <CurrencySymbol /> {data?.price}{" "}
+                     <ShowPrice data={data} /> {" "}
                   </span>
                 </p>
 
@@ -63,6 +64,7 @@ export default function Products({ product_data, base_url }: any) {
       {data && (
         <CustomModal
           data={data}
+          setdata={setdata}
           base_url={base_url}
           handleOpen={handleOpen}
           handleClose={handleClose}
