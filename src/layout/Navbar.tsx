@@ -66,7 +66,6 @@ const Navbar = () => {
 
   const place_data = useSelector((state: any) => state?.place);
   const carts = useSelector((state: any) => state?.carts);
-  
 
   function openNav() {
     document.getElementById("mySidebar").style.width = "60vh";
@@ -133,7 +132,7 @@ const Navbar = () => {
               };
               dispatch(loading_rdx(v));
               setloading(false);
-              window.location.reload();
+              // window.location.reload();
 
               suggestionsList.style.display = "none";
             } catch (error: any) {
@@ -273,10 +272,22 @@ const Navbar = () => {
     dispatch(get_default_config_rdx(config_data?.data));
 
     if (!place_data?.get_default_config) {
+      let v: any = {
+        val: 1,
+      };
+
+      dispatch(loading_rdx(v));
+
       await fetchData(
         config_data?.data?.default_location?.lat,
         config_data?.data?.default_location?.lng
       );
+
+      v = {
+        val: 0,
+      };
+
+      dispatch(loading_rdx(v));
     }
   };
 
@@ -365,18 +376,14 @@ const Navbar = () => {
 
                         <li>
                           <a className="cart" href="#">
-                            {carts.length > 0 && (
-                              <IconButton aria-label="cart">
-                                <StyledBadge
-                                  badgeContent={
-                                    carts.length > 0 ? carts.length : ""
-                                  }
-                                  color={"warning"}
-                                >
-                                  <ShoppingCartIcon />
-                                </StyledBadge>
-                              </IconButton>
-                            )}{" "}
+                            <IconButton aria-label="cart">
+                              <StyledBadge
+                                badgeContent={carts.length || undefined}
+                                color={"warning"}
+                              >
+                                <ShoppingCartIcon />
+                              </StyledBadge>
+                            </IconButton>{" "}
                             Cart
                           </a>
                           <div className="cart-wrapper">
@@ -403,20 +410,38 @@ const Navbar = () => {
                               <hr />
 
                               {carts.map((data: any, key: number) => (
-                                <div className="product-details">
-                                  <div className="pro-name">
-                                    <p>
-                                      <small>{data?.name} :</small>
-                                    </p>
-                                    <p className="price">
-                                      <small>
-                                      <CurrencySymbol />{" "}
-                                        {
-                                          showTotalInCart(data)
-                                        }
-                                         
-                                      </small>
-                                    </p>
+                                <div>
+                                  <div className="product-details" key={key}>
+                                    <div className="pro-name">
+                                      <p>
+                                        <small>
+                                          {data?.name}
+
+                                          {/* {(() => {
+                                          if (data?.selectedVariant) {
+                                            return (
+                                              <small>
+                                                {"( "}
+                                                {
+                                                  data?.selectedVariant.split(
+                                                    " Price"
+                                                  )[0]
+                                                }{") "}
+                                              </small>
+                                            );
+                                          }
+                                        })()} */}
+                                        </small>
+                                      </p>
+
+                                      <p className="price">
+                                        <small>
+                                          <CurrencySymbol />
+                                          {" :"}
+                                          {showTotalInCart(data)}
+                                        </small>
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                               ))}
@@ -432,11 +457,7 @@ const Navbar = () => {
                                     <span>
                                       <CurrencySymbol />{" "}
                                     </span>{" "}
-
-                                    {
-                                      showGrandTotalInCart(carts)
-                                    }
-                                    
+                                    {showGrandTotalInCart(carts)}
                                   </p>
                                 </div>
                               </div>

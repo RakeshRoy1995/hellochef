@@ -288,7 +288,7 @@ export const showTotalInCart = (data: any) => {
 
 
 
-  return calculablePrice;
+  return calculablePrice || grand_total;
 };
 
 export const showGrandTotalInCart = (array: any) => {
