@@ -46,6 +46,7 @@ import ShowPlace from "../customComponents/ShowPlace";
 
 import { loading_rdx } from "../redux/loading";
 import Loader from "./Loader";
+import { Link } from "react-router-dom";
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -303,8 +304,6 @@ const Navbar = () => {
     fetchInitial();
   }, []);
 
-  console.log(`searchInputValue`, loading);
-
   return (
     <header className="header">
       <div className="container">
@@ -324,9 +323,9 @@ const Navbar = () => {
                   </button>
                   <div className="head-left-wrap">
                     <div className="site-logo">
-                      <a className="page-scroll logo-light" href="#">
+                      <Link to={`/`} className="page-scroll logo-light">
                         <img alt="" src="image/logo.jpeg" />
-                      </a>
+                      </Link>
                     </div>
                     <div className="other">
                       <a className="openbtn" onClick={(e: any) => openNav()}>
@@ -359,10 +358,10 @@ const Navbar = () => {
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <Link to={`/menu`}>
                             <i className="fa fa-life-ring" aria-hidden="true" />{" "}
-                            Help
-                          </a>
+                            Menu
+                          </Link>
                         </li>
                         <li>
                           <a href="#" onClick={openRightNav}>
