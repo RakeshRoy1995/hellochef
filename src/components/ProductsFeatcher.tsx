@@ -32,7 +32,7 @@ export default function ProductsFeatcher({ product_data, base_url }: any) {
               <div className="featured-lower">
                 <div>
                   <p className="price-p">
-                    <i className="fa fa-inr" aria-hidden="true" />{" "}
+                    {/* <i className="fa fa-inr" aria-hidden="true" />{" "} */}
                     <ShowPrice data={data} />
                   </p>
                 </div>
