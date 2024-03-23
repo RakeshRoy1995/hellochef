@@ -155,12 +155,12 @@ export default function Menu() {
                       <h4 className="outlet-name">{cat_data?.name}</h4>
                     </div>
                   </div>
-
+                  <div className="row order-row">
                   {getAllProductsByCatID(
                     category_data?.products_popular?.products,
                     cat_data.id
                   ).map((product: any, k: any) => (
-                    <div className="row" key={k}>
+                    
                       <div className="col-sm-6 col-md-6" key={k}>
                         <div className="outlet-pro-wrap">
                           <div className="outlet-p-text">
@@ -202,8 +202,9 @@ export default function Menu() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    
                   ))}
+                  </div>
                 </>
               ))}
             </div>

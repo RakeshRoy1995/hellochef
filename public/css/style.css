@@ -765,6 +765,7 @@ position: absolute;
   position: relative;
 }
 #featured .owl-nav{display:  none}
+.order-row .col-md-6:nth-child(2n+1) {clear: left;}
 
 /* ==========================================================================
    15.0 Responsive CSS
