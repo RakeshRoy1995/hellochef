@@ -137,7 +137,7 @@ export default function Menu() {
                   <div id="featured" className="">
                     <ProductsFeatcher
                       product_data={
-                        category_data?.products_most_reviewed?.products
+                        category_data?.campaign
                       }
                       base_url={
                         category_data?.get_default_config?.base_urls
