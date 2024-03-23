@@ -1,5 +1,5 @@
 import Slider from "react-slick";
-import { slick_multiple_breakdown_menu_settings, slick_multiple_breakdown_settings } from "../utils/utils";
+import { showCampaignProducts, slick_multiple_breakdown_menu_settings, slick_multiple_breakdown_settings } from "../utils/utils";
 import CurrencySymbol from "./CurrencySymbol";
 import { useState } from "react";
 import CustomModal from "../customComponents/CustomModal";
@@ -13,9 +13,15 @@ export default function ProductsFeatcher({ product_data, base_url }: any) {
     setOpen(false);
     setdata("");
   };
+
+
+  showCampaignProducts(product_data)
+
+
+  // console.log(`product_data`, product_data);
   return (
     <>
-      <Slider {...slick_multiple_breakdown_menu_settings}>
+      {/* <Slider {...slick_multiple_breakdown_menu_settings}>
         {product_data?.map((data: any, key: any) => (
           <div className="item curson_point" key={key}>
             <div className="featured-outer">
@@ -89,7 +95,7 @@ export default function ProductsFeatcher({ product_data, base_url }: any) {
           //   </div>
           // </div>
         ))}
-      </Slider>
+      </Slider> */}
 
       {data && (
         <CustomModal

@@ -350,7 +350,6 @@ export const getAllProductsByCatID = (allProducts = [], cat_id: number , name=""
 
 export const getAllProductsGroupByCategory = (
   allProducts = [],
-  all_category = []
 ) => {
   
   const playersByTeam = groupBy(allProducts, (player:any) => player.category_id);
@@ -370,3 +369,17 @@ function groupBy(array, callback) {
   });
   return groups;
 }
+
+
+export const showCampaignProducts = (
+  allcampaign = [],
+) => {
+
+  const allCatIds = allcampaign.map((data:any)=> {
+    
+  })
+
+
+  
+  return [];
+};
