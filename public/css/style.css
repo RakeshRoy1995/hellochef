@@ -453,7 +453,7 @@ border-radius: 16px;
     font-size: 19px;
 }
 
-.sub-part-outer:hover {background:  linear-gradient(90deg, #ffffff 0%, #ffa700 100%)}
+.sub-part-outer:hover, .sub-part-outer.active{background:  linear-gradient(90deg, #ffffff 0%, #ffa700 100%)}
 .sub-part-outer {
     display: flex;
     align-items: center;
@@ -546,6 +546,13 @@ border-radius: 16px;
 }
 .chek label input + span {
   color: #000;
+}
+
+.chek input:checked+span i {
+  display: block;
+}
+.chek input+span i {
+  display: none;
 }
 
 .chek label span {

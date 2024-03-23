@@ -102,7 +102,7 @@ export default function Menu() {
                             </div>{" "}
                             Veg{" "}
                             <i
-                              className="las la-times"
+                              className="fa fa-times"
                               style={{ marginLeft: 5 }}
                             />
                           </span>
@@ -121,7 +121,7 @@ export default function Menu() {
                             </div>{" "}
                             Non-Veg{" "}
                             <i
-                              className="las la-times"
+                              className="fa fa-times"
                               style={{ marginLeft: 5 }}
                             />
                           </span>
