@@ -494,6 +494,7 @@ border-radius: 16px;
     margin-top: 25px;
     display: flex;
     align-items: center;
+    margin: 10px 15px;
 }
 .veg-toggle {
   font-size: 14px;
@@ -735,19 +736,22 @@ border-radius: 16px;
 color: #000;
 }
 .outlet-p-img img{max-width:  130px}
-.cart-new-btn {
+.cart-new-btn .btn{
 
   border: 1px solid #ffa700;
   color: #ffa700;
   font-size: 14px;
   font-weight: 700;
-  line-height: 34px;
+  line-height: 24px;
   text-align: center;
   background-color: #fff;
   border-radius: 4px;
   position: relative;
   width: 80px !important;
-  height: 35px !important;
+}
+.cart-new-btn .btn:hover {
+  opacity: 0.8;
+
 }
 
 .outlet-pro-wrap {
@@ -756,21 +760,23 @@ color: #000;
   background-color: #fff;
   margin: 0 0 13px;
   border-radius: 5px !important;
-  box-shadow: 0px 0px 6px rgb(0 0 0 / 10%);
+  box-shadow: 0px 0px 6px rgb(0 0 0 / 20%);
   overflow: hidden;
+  min-height: 210px;
 }
 .customisable-span {
   color: #ffa700;
 }
 .outlet-p-text {
   width: 70%;
+  padding-right: 5px;
 }
 .outlet-p-text p {font-size:  14px;line-height:  1.5}
 .outlet-pro-wrap .cart-new-btn {
 
 position: absolute;
   z-index: 1;
-  bottom: -10px;
+  bottom: 0;
   left: 50%;
   transform: translate(-50%, 0%);
 }
@@ -779,6 +785,7 @@ position: absolute;
 }
 #featured .owl-nav{display:  none}
 .order-row .col-md-6:nth-child(2n+1) {clear: left;}
+.order-wrapper .col-md-9 .row {margin-right: -30px;}
 
 /* ==========================================================================
    15.0 Responsive CSS
@@ -830,6 +837,9 @@ position: absolute;
     .recipe-chain.recommended-recipe .price-wrapper > img {height: 140px;}
     .container.custom-max-width {max-width: 100%;}     
     .head-left-wrap {padding-left: 10px;}  .navbar-toggle {margin-right: 15px;}
+    .veg-toggle {display: block;}
+    .checkboxnew-outer {display: flex;justify-content: left;}
+    .search-bar {margin-bottom: 10px;}
 }
 @media (max-width:599px) {}
 @media (max-width:479px) {
