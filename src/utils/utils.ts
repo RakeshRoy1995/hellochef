@@ -136,7 +136,6 @@ export const slick_multiple_breakdown_settings: any = {
   ],
 };
 
-
 export const slick_multiple_breakdown_menu_settings: any = {
   // dots: true,
   infinite: true,
@@ -171,8 +170,6 @@ export const slick_multiple_breakdown_menu_settings: any = {
     },
   ],
 };
-
-
 
 export const slick_multiple_breakdown_settings_cuisin: any = {
   // dots: true,
@@ -312,19 +309,18 @@ export const showTotalInCart = (data: any) => {
 
   const subTotal = Number(data?.price) * Number(data?.total_qty);
   const grand_total = subTotal + addons_total;
-  
+
   let calculablePrice: number = 0;
 
   if (data?.discount) {
     if (data?.discount_type == "percent") {
       calculablePrice =
-        Number(grand_total) - (Number(grand_total) * Number(data?.discount) /100) ;
+        Number(grand_total) -
+        (Number(grand_total) * Number(data?.discount)) / 100;
     } else {
       calculablePrice = Number(grand_total) - Number(data?.discount);
     }
   }
-
-
 
   return calculablePrice || grand_total;
 };
@@ -338,7 +334,6 @@ export const showGrandTotalInCart = (array: any) => {
   return grand_total;
 };
 
-
 export const showPriceOfProduct = (array: any) => {
   let grand_total = 0;
   for (let index = 0; index < array.length; index++) {
@@ -347,3 +342,31 @@ export const showPriceOfProduct = (array: any) => {
 
   return grand_total;
 };
+
+export const getAllProductsByCatID = (allProducts = [], cat_id: number , name="" , vag="") => {
+  const result = allProducts.filter((data) => data.category_id == cat_id);
+  return result;
+};
+
+export const getAllProductsGroupByCategory = (
+  allProducts = [],
+  all_category = []
+) => {
+  
+  const playersByTeam = groupBy(allProducts, (player:any) => player.category_id);
+
+  return playersByTeam;
+};
+
+
+function groupBy(array, callback) {
+  const groups = {};
+  array.forEach((item, index) => {
+      const groupName = callback(item, index, array);
+      if (!groups[groupName]) {
+          groups[groupName] = [];
+      }
+      groups[groupName].push(item);
+  });
+  return groups;
+}

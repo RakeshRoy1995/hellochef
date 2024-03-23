@@ -17,7 +17,7 @@ function App() {
         </Route>
         {/* <Route path="/login" element={ <Login />  } /> */}
         <Route index element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
+        <Route index path="/menu" element={<Menu />} />
       </Routes>
       </section>
       <Footer />
