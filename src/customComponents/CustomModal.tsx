@@ -181,7 +181,7 @@ export default function CustomModal({
               <Grid item xs={12}>
                 <img
                   src={base_url + "/" + data?.image}
-                  style={{ width: "10%", maxHeight: "350px" }}
+                  style={{ width: "100%", maxHeight: "350px" }}
                   alt=""
                 />
               </Grid>
