@@ -76,56 +76,58 @@ export default function Menu() {
               </div>
             </div>
             <div className="col-md-9">
-              <div className="row veg-toggle">
-                <div className="col-sm-6 col-md-6">
-                  <div className="search-bar">
-                    <input type="text" placeholder="Search.." />
+              <div className="row">
+                <div className="veg-toggle">
+                  <div className="col-sm-6 col-md-6">
+                    <div className="search-bar">
+                      <input type="text" placeholder="Search.." />
+                    </div>
                   </div>
-                </div>
-                <div className="col-sm-6 col-md-6">
-                  <div className="voggle-right">
-                    <div
-                      className="checkboxnew-outer"
-                      id="vegNonBoth"
-                      style={{}}
-                    >
-                      <div className="chek action">
-                        <label>
-                          <input
-                            type="checkbox"
-                            defaultValue={1}
-                            name="chkBestSeller"
-                          />
-                          <span>
-                            <div className="veg-flag">
-                              <span />
-                            </div>{" "}
-                            Veg{" "}
-                            <i
-                              className="fa fa-times"
-                              style={{ marginLeft: 5 }}
+                  <div className="col-sm-6 col-md-6">
+                    <div className="voggle-right">
+                      <div
+                        className="checkboxnew-outer"
+                        id="vegNonBoth"
+                        style={{}}
+                      >
+                        <div className="chek action">
+                          <label>
+                            <input
+                              type="checkbox"
+                              defaultValue={1}
+                              name="chkBestSeller"
                             />
-                          </span>
-                        </label>
-                      </div>
-                      <div className="chek comedy">
-                        <label>
-                          <input
-                            type="checkbox"
-                            defaultValue={2}
-                            name="chkBestSeller"
-                          />
-                          <span>
-                            <div className="non-vegflag">
-                              <span />
-                            </div>{" "}
-                            Non-Veg{" "}
-                            <i
-                              className="fa fa-times"
-                              style={{ marginLeft: 5 }}
+                            <span>
+                              <div className="veg-flag">
+                                <span />
+                              </div>{" "}
+                              Veg{" "}
+                              <i
+                                className="fa fa-times"
+                                style={{ marginLeft: 5 }}
+                              />
+                            </span>
+                          </label>
+                        </div>
+                        <div className="chek comedy">
+                          <label>
+                            <input
+                              type="checkbox"
+                              defaultValue={2}
+                              name="chkBestSeller"
                             />
-                          </span>
-                        </label>
+                            <span>
+                              <div className="non-vegflag">
+                                <span />
+                              </div>{" "}
+                              Non-Veg{" "}
+                              <i
+                                className="fa fa-times"
+                                style={{ marginLeft: 5 }}
+                              />
+                            </span>
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
