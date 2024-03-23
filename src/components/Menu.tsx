@@ -11,6 +11,9 @@ import CustomModal from "../customComponents/CustomModal";
 export default function Menu() {
   const category_data: any = useSelector((state: any) => state?.place);
 
+  const [featuredItems, setfeaturedItems] = useState("");
+  const [vag, setvag] = useState<any>("");
+  const [search, setsearch] = useState<any>("");
   const [open, setOpen] = useState(false);
   const [data, setdata] = useState("");
   const handleOpen = () => setOpen(true);
@@ -19,7 +22,7 @@ export default function Menu() {
     setdata("");
   };
 
-  console.log(`data`, data);
+  console.log(`data`, vag);
 
   return (
     <>
@@ -38,8 +41,21 @@ export default function Menu() {
                       <p>Featured Items</p>
                     </div>
                     <div className="s-count">
-                      <p>(6)</p>
+                      <p>( {featuredItems} )</p>
                     </div>
+                  </div>
+                  <div
+                    className="sub-part-outer"
+                    onClick={(e) => {
+                      setvag("");
+                      setsearch("");
+                    }}
+                  >
+                    <div className="s-img"></div>
+                    <div className="s-text">
+                      <p>all category</p>
+                    </div>
+                    <div className="s-count"></div>
                   </div>
 
                   {category_data?.category?.map((cat_data: any, key: any) => (
@@ -64,7 +80,9 @@ export default function Menu() {
                           {
                             getAllProductsByCatID(
                               category_data?.products_popular?.products,
-                              cat_data.id
+                              cat_data.id,
+                              vag,
+                              search
                             ).length
                           }{" "}
                           )
@@ -79,7 +97,12 @@ export default function Menu() {
               <div className="row veg-toggle">
                 <div className="col-sm-6 col-md-6">
                   <div className="search-bar">
-                    <input type="text" placeholder="Search.." />
+                    <input
+                      type="text"
+                      value={search}
+                      onChange={(e: any) => setsearch(e.target.value)}
+                      placeholder="Search.."
+                    />
                   </div>
                 </div>
                 <div className="col-sm-6 col-md-6">
@@ -89,14 +112,14 @@ export default function Menu() {
                       id="vegNonBoth"
                       style={{}}
                     >
-                      <div className="chek action">
+                      <div className="chek action" onClick={(e) => setvag(1)}>
                         <label>
                           <input
                             type="checkbox"
                             defaultValue={1}
                             name="chkBestSeller"
                           />
-                          <span>
+                          <span style={{ background:  vag == 1 ? "#d8eec7" : undefined}}>
                             <div className="veg-flag">
                               <span />
                             </div>{" "}
@@ -108,14 +131,17 @@ export default function Menu() {
                           </span>
                         </label>
                       </div>
-                      <div className="chek comedy">
+                      <div
+                        className="chek comedy"
+                        onClick={(e) => setvag(0)}
+                      >
                         <label>
                           <input
                             type="checkbox"
                             defaultValue={2}
                             name="chkBestSeller"
                           />
-                          <span>
+                          <span style={{ background:  vag == 0 ? "#d8eec7" : undefined}}>
                             <div className="non-vegflag">
                               <span />
                             </div>{" "}
@@ -136,13 +162,15 @@ export default function Menu() {
                   <h4 className="outlet-name">Featured Items</h4>
                   <div id="featured" className="">
                     <ProductsFeatcher
-                      product_data={
-                        category_data?.campaign
+                      campaignData={category_data?.campaign}
+                      allproduct_data={
+                        category_data?.products_popular?.products
                       }
                       base_url={
                         category_data?.get_default_config?.base_urls
                           ?.product_image_url
                       }
+                      setfeaturedItems={setfeaturedItems}
                     />
                   </div>
                 </div>
@@ -150,61 +178,69 @@ export default function Menu() {
 
               {category_data?.category?.map((cat_data: any, key: any) => (
                 <>
-                  <div className="row " key={key}>
-                    <div className="col-md-12">
-                      <h4 className="outlet-name">{cat_data?.name}</h4>
-                    </div>
-                  </div>
-                  <div className="row order-row">
                   {getAllProductsByCatID(
                     category_data?.products_popular?.products,
-                    cat_data.id
-                  ).map((product: any, k: any) => (
-                    
-                      <div className="col-sm-6 col-md-6" key={k}>
-                        <div className="outlet-pro-wrap">
-                          <div className="outlet-p-text">
-                            <h4 className="item-title">{product?.name}</h4>
-                            <p className="heading-customize ">
-                              {product?.description}
-                            </p>
-                            <span className="customisable-span">
-                              {product?.variations.length
-                                ? "Customisation Available"
-                                : "Customisation Unailable"}
-                            </span>
-                            <p className="price-p">
-                              <ShowPrice data={product} />
-                              {/* <i className="fa fa-inr" aria-hidden="true" /> 545 */}
-                            </p>
-                          </div>
-                          <div className="outlet-p-img">
-                            <img
-                              src={
-                                category_data?.get_default_config?.base_urls
-                                  ?.product_image_url +
-                                "/" +
-                                product?.image
-                              }
-                              alt=""
-                            />
-                            <div className="cart-new-btn">
-                              <div
-                                className="btn"
-                                onClick={(e: any) => {
-                                  setdata(product);
-                                  setOpen(true);
-                                }}
-                              >
-                                ADD +
+                    cat_data.id,
+                    vag,
+                    search
+                  ).length > 0 && (
+                    <>
+                      <div className="row " key={key}>
+                        <div className="col-md-12">
+                          <h4 className="outlet-name">{cat_data?.name}</h4>
+                        </div>
+                      </div>
+                      <div className="row order-row">
+                        {getAllProductsByCatID(
+                          category_data?.products_popular?.products,
+                          cat_data.id,
+                          vag,
+                          search
+                        ).map((product: any, k: any) => (
+                          <div className="col-sm-6 col-md-6" key={k}>
+                            <div className="outlet-pro-wrap">
+                              <div className="outlet-p-text">
+                                <h4 className="item-title">{product?.name}</h4>
+                                <p className="heading-customize ">
+                                  {product?.description}
+                                </p>
+                                <span className="customisable-span">
+                                  {product?.variations.length
+                                    ? "Customisation Available"
+                                    : "Customisation Unailable"}
+                                </span>
+                                <p className="price-p">
+                                  <ShowPrice data={product} />
+                                </p>
+                              </div>
+                              <div className="outlet-p-img">
+                                <img
+                                  src={
+                                    category_data?.get_default_config?.base_urls
+                                      ?.product_image_url +
+                                    "/" +
+                                    product?.image
+                                  }
+                                  alt=""
+                                />
+                                <div className="cart-new-btn">
+                                  <div
+                                    className="btn"
+                                    onClick={(e: any) => {
+                                      setdata(product);
+                                      setOpen(true);
+                                    }}
+                                  >
+                                    ADD +
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        ))}
                       </div>
-                    
-                  ))}
-                  </div>
+                    </>
+                  )}
                 </>
               ))}
             </div>

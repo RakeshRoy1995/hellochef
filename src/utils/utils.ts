@@ -343,43 +343,77 @@ export const showPriceOfProduct = (array: any) => {
   return grand_total;
 };
 
-export const getAllProductsByCatID = (allProducts = [], cat_id: number , name="" , vag="") => {
-  const result = allProducts.filter((data) => data.category_id == cat_id);
+export const getAllProductsByCatID = (
+  allProducts = [],
+  cat_id: number,
+  veg = "",
+  name = "",
+) => {
+  let result = allProducts.filter((data) => data.category_id == cat_id);
+  if (name !== "") {
+    result = result.filter((data) => data.name.toLowerCase().includes(name.toLowerCase()));
+    
+  }
+  if (veg !== "") {
+   result = result.filter((data) => data.veg == veg);
+  }
+  
   return result;
 };
 
-export const getAllProductsGroupByCategory = (
-  allProducts = [],
-) => {
-  
-  const playersByTeam = groupBy(allProducts, (player:any) => player.category_id);
+export const getAllProductsGroupByCategory = (allProducts = []) => {
+  const playersByTeam = groupBy(
+    allProducts,
+    (player: any) => player.category_id
+  );
 
   return playersByTeam;
 };
 
-
 function groupBy(array, callback) {
   const groups = {};
   array.forEach((item, index) => {
-      const groupName = callback(item, index, array);
-      if (!groups[groupName]) {
-          groups[groupName] = [];
-      }
-      groups[groupName].push(item);
+    const groupName = callback(item, index, array);
+    if (!groups[groupName]) {
+      groups[groupName] = [];
+    }
+    groups[groupName].push(item);
   });
   return groups;
 }
 
+export const showCampaignProducts = (allcampaign = []) => {
+  const allCatIds = allcampaign.map((data: any) => {
+    const ids = data?.category_ids.map((cat_id: any) => {
+      return cat_id?.id;
+    });
 
-export const showCampaignProducts = (
-  allcampaign = [],
-) => {
+    return ids;
+  });
 
-  const allCatIds = allcampaign.map((data:any)=> {
-    
-  })
+  const newArr = [];
 
+  for (const arr of allCatIds) {
+    newArr.push(...arr);
+  }
 
-  
-  return [];
+  return newArr;
+};
+
+export const getAllProductsOfcampaign = (allCatId = [], allProducts = []) => {
+  const products = [];
+  for (let index = 0; index < allCatId.length; index++) {
+    const id = allCatId[index];
+    const temp_data = getAllProductsByCatID(allProducts, id);
+
+    products.push(temp_data);
+  }
+
+  const newArr = [];
+
+  for (const arr of products) {
+    newArr.push(...arr);
+  }
+
+  return newArr;
 };
