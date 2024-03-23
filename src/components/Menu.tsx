@@ -119,15 +119,18 @@ export default function Menu() {
                             defaultValue={1}
                             name="chkBestSeller"
                           />
-                          <span style={{ background:  vag == 1 ? "#d8eec7" : undefined}}>
+                          <span>
                             <div className="veg-flag">
                               <span />
                             </div>{" "}
                             Veg{" "}
-                            <i
-                              className="fa fa-times"
+
+                            {
+                              vag == 1 && <i
+                              className="fa fa-check"
                               style={{ marginLeft: 5 }}
                             />
+                            }
                           </span>
                         </label>
                       </div>
@@ -141,15 +144,18 @@ export default function Menu() {
                             defaultValue={2}
                             name="chkBestSeller"
                           />
-                          <span style={{ background:  vag == 0 ? "#d8eec7" : undefined}}>
+                          <span>
                             <div className="non-vegflag">
                               <span />
                             </div>{" "}
                             Non-Veg{" "}
-                            <i
-                              className="fa fa-times"
+                            {
+                              vag == 0 && vag !== ""  && <i
+                              className="fa fa-check"
                               style={{ marginLeft: 5 }}
                             />
+                            }
+                            
                           </span>
                         </label>
                       </div>
