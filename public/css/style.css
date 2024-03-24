@@ -840,6 +840,7 @@ position: absolute;
     .veg-toggle {display: block;}
     .checkboxnew-outer {display: flex;justify-content: left;}
     .search-bar {margin-bottom: 10px;}
+    .order-wrapper .category-wrap {display: none;}
 }
 @media (max-width:599px) {}
 @media (max-width:479px) {
