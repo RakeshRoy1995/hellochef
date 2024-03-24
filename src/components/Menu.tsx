@@ -101,54 +101,64 @@ export default function Menu() {
                       <input type="text" placeholder="Search.." />
                     </div>
                   </div>
+                  
                   <div className="col-sm-6 col-md-6">
-                    <div className="voggle-right">
+                  <div className="voggle-right">
+                    <div
+                      className="checkboxnew-outer"
+                      id="vegNonBoth"
+                      style={{}}
+                    >
+                      <div className="chek action" onClick={(e) => setvag(1)}>
+                        <label>
+                          <input
+                            type="checkbox"
+                            defaultValue={1}
+                            name="chkBestSeller"
+                          />
+                          <span>
+                            <div className="veg-flag">
+                              <span />
+                            </div>{" "}
+                            Veg{" "}
+
+                            {
+                              vag !== "" && vag == 1 && <i
+                              className="fa fa-check"
+                              style={{ marginLeft: 5 }}
+                            />
+                            }
+                          </span>
+                        </label>
+                      </div>
                       <div
-                        className="checkboxnew-outer"
-                        id="vegNonBoth"
-                        style={{}}
+                        className="chek comedy"
+                        onClick={(e) => setvag(0)}
                       >
-                        <div className="chek action">
-                          <label>
-                            <input
-                              type="checkbox"
-                              defaultValue={1}
-                              name="chkBestSeller"
+                        <label>
+                          <input
+                            type="checkbox"
+                            defaultValue={2}
+                            name="chkBestSeller"
+                          />
+                          <span>
+                            <div className="non-vegflag">
+                              <span />
+                            </div>{" "}
+                            Non-Veg{" "}
+                            {
+                             vag !== "" && vag == 0    && <i
+                              className="fa fa-check"
+                              style={{ marginLeft: 5 }}
                             />
-                            <span>
-                              <div className="veg-flag">
-                                <span />
-                              </div>{" "}
-                              Veg{" "}
-                              <i
-                                className="fa fa-times"
-                                style={{ marginLeft: 5 }}
-                              />
-                            </span>
-                          </label>
-                        </div>
-                        <div className="chek comedy">
-                          <label>
-                            <input
-                              type="checkbox"
-                              defaultValue={2}
-                              name="chkBestSeller"
-                            />
-                            <span>
-                              <div className="non-vegflag">
-                                <span />
-                              </div>{" "}
-                              Non-Veg{" "}
-                              <i
-                                className="fa fa-times"
-                                style={{ marginLeft: 5 }}
-                              />
-                            </span>
-                          </label>
-                        </div>
+                            }
+                            
+                          </span>
+                        </label>
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>   
               </div>
               <div className="row">

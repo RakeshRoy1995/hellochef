@@ -549,12 +549,12 @@ border-radius: 16px;
   color: #000;
 }
 
-.chek input:checked+span i {
+/* .chek input:checked+span i {
   display: block;
 }
 .chek input+span i {
   display: none;
-}
+} */
 
 .chek label span {
   text-align: center;
