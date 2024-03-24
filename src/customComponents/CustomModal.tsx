@@ -22,9 +22,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 700,
+  width: '80%',
+  maxWidth: 700,
   bgcolor: "background.paper",
-  border: "1px solid #b65c46",
+  border: "1px solid #fff",
   boxShadow: 50,
   p: 4,
 };
@@ -160,7 +161,7 @@ export default function CustomModal({
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
       sx={{
-        border: '2px solid red', // Customize border styles here
+        border: '2px solid transparent', // Customize border styles here
         borderRadius: '10px', // Optional: Adjust border radius for rounded corners
         // Add any other custom styles you need
       }}
@@ -181,7 +182,7 @@ export default function CustomModal({
               <Grid item xs={12}>
                 <img
                   src={base_url + "/" + data?.image}
-                  style={{ width: "10%", maxHeight: "350px" }}
+                  style={{ width: "100%", maxHeight: "350px" }}
                   alt=""
                 />
               </Grid>
