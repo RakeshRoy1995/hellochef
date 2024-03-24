@@ -26,6 +26,7 @@ const style = {
   maxWidth: 700,
   bgcolor: "background.paper",
   border: "1px solid #fff",
+  outline: "none",
   boxShadow: 50,
   p: 4,
 };
