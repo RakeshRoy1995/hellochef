@@ -347,17 +347,18 @@ export const getAllProductsByCatID = (
   allProducts = [],
   cat_id: number,
   veg = "",
-  name = "",
+  name = ""
 ) => {
   let result = allProducts.filter((data) => data.category_id == cat_id);
   if (name !== "") {
-    result = result.filter((data) => data.name.toLowerCase().includes(name.toLowerCase()));
-    
+    result = result.filter((data) =>
+      data.name.toLowerCase().includes(name.toLowerCase())
+    );
   }
   if (veg !== "") {
-   result = result.filter((data) => data.veg == veg);
+    result = result.filter((data) => data.veg == veg);
   }
-  
+
   return result;
 };
 
@@ -416,4 +417,9 @@ export const getAllProductsOfcampaign = (allCatId = [], allProducts = []) => {
   }
 
   return newArr;
+};
+
+export const getAllcategoryByIDS = (allCatId = [], allcategory = []) => {
+  const result = allcategory.filter((data) => allCatId.includes(data.id));
+  return result;
 };

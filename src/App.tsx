@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import Menu from "./components/Menu";
+import MenuRestaurant from "./components/MenuRestaurant";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         {/* <Route path="/login" element={ <Login />  } /> */}
         <Route index element={<Home />} />
         <Route index path="/menu" element={<Menu />} />
+        <Route index path="/restaurant/:name/:id" element={<MenuRestaurant />} />
       </Routes>
       </section>
       <Footer />

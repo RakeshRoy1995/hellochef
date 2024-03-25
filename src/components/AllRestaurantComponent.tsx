@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CurrencySymbol from "./CurrencySymbol";
 
 export default function AllRestaurantComponent({ restaurent, base_url }: any) {
@@ -35,7 +36,13 @@ export default function AllRestaurantComponent({ restaurent, base_url }: any) {
                 </div>
 
                 <div className="chain-wrap">
-                  <h5>{data?.name}</h5>
+                  <Link
+                    to={`/restaurant/${data?.name.replaceAll(" ", "-")}/${
+                      data?.id
+                    }`}
+                  >
+                    <h5>{data?.name}</h5>
+                  </Link>
 
                   <p className="rating">
                     {data?.avg_rating > 0 && (

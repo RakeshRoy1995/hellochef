@@ -240,3 +240,14 @@ export function config_api() {
 
   return axios(options);
 }
+
+export function restaurants_details(restaurant_id:string) {
+  const page_list = `${API_URL}/v1/restaurants/details/${restaurant_id}`;
+
+  const options = {
+    method: "get",
+    url: page_list,
+  };
+
+  return axios(options);
+}
