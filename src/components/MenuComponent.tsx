@@ -84,7 +84,7 @@ export default function MenuComponent({allCategory}:any) {
                           vag,
                           search
                         ).map((product: any, k: any) => (
-                          <div className="col-sm-4 col-md-4" key={k}>
+                          <div className="col-sm-6 col-md-4" key={k}>
                             <div className="outlet-pro-wrap">
                               <div className="outlet-p-img">
                                 <img
