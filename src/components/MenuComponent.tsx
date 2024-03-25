@@ -41,17 +41,6 @@ export default function MenuComponent({allCategory}:any) {
               <div className="category-wrap">
                 <p className="categories-hd">Categories</p>
                 <div className="inner-toogle-new">
-                  {/* <div className="sub-part-outer">
-                    <div className="s-img">
-                      <i className="fa fa-heart" aria-hidden="true" />
-                    </div>
-                    <div className="s-text">
-                      <p>Featured Items</p>
-                    </div>
-                    <div className="s-count">
-                      <p>( {featuredItems} )</p>
-                    </div>
-                  </div> */}
                   <div
                     className="sub-part-outer"
                     onClick={(e) => {
@@ -59,42 +48,14 @@ export default function MenuComponent({allCategory}:any) {
                       setsearch("");
                     }}
                   >
-                    <div className="s-img"></div>
-                    <div className="s-text">
-                      <p>all category ({allCategory.length} ) </p>
-                    </div>
+
                     <div className="s-count"></div>
                   </div>
 
                   {allCategory?.map((cat_data: any, key: any) => (
                     <div className="sub-part-outer" key={key}>
-                      <div className="s-img">
-                        <img
-                          src={
-                            category_data?.get_default_config?.base_urls
-                              ?.category_image_url +
-                            "/" +
-                            cat_data?.image
-                          }
-                          alt=""
-                        />
-                      </div>
                       <div className="s-text">
                         <p>{cat_data?.name}</p>
-                      </div>
-                      <div className="s-count">
-                        <p>
-                          ({" "}
-                          {
-                            getAllProductsByCatID(
-                              category_data?.products_popular?.products,
-                              cat_data.id,
-                              vag,
-                              search
-                            ).length
-                          }{" "}
-                          )
-                        </p>
                       </div>
                     </div>
                   ))}
@@ -123,22 +84,8 @@ export default function MenuComponent({allCategory}:any) {
                           vag,
                           search
                         ).map((product: any, k: any) => (
-                          <div className="col-sm-6 col-md-6" key={k}>
+                          <div className="col-sm-4 col-md-4" key={k}>
                             <div className="outlet-pro-wrap">
-                              <div className="outlet-p-text">
-                                <h4 className="item-title">{product?.name}</h4>
-                                <p className="heading-customize ">
-                                  {product?.description}
-                                </p>
-                                <span className="customisable-span">
-                                  {product?.variations.length
-                                    ? "Customisation Available"
-                                    : "Customisation Unailable"}
-                                </span>
-                                <p className="price-p">
-                                  <ShowPrice data={product} />
-                                </p>
-                              </div>
                               <div className="outlet-p-img">
                                 <img
                                   src={
@@ -149,7 +96,11 @@ export default function MenuComponent({allCategory}:any) {
                                   }
                                   alt=""
                                 />
-                                <div className="cart-new-btn">
+                                <h4 className="item-title">{product?.name}</h4>
+                                <p className="price-p">
+                                  <ShowPrice data={product} />
+                                </p>
+                                {/* <div className="cart-new-btn">
                                   <div
                                     className="btn"
                                     onClick={(e: any) => {
@@ -159,7 +110,7 @@ export default function MenuComponent({allCategory}:any) {
                                   >
                                     ADD +
                                   </div>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                           </div>
