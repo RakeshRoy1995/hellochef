@@ -68,7 +68,7 @@ export default function MenuRestaurant() {
         {loadingSpin?.val == "1" ? (
           <ContentLoader />
         ) : (
-          <MenuComponent allCategory={allCategory} />
+          <MenuComponent allCategory={allCategory} catData={catData} />
         )}
       </section>
     </>

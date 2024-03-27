@@ -11,19 +11,7 @@ import MenuComponent from "./MenuComponent";
 
 export default function Menu() {
   const category_data: any = useSelector((state: any) => state?.place);
-
-  const [featuredItems, setfeaturedItems] = useState("");
-  const [vag, setvag] = useState<any>("");
-  const [search, setsearch] = useState<any>("");
-  const [open, setOpen] = useState(false);
-  const [data, setdata] = useState("");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    setdata("");
-  };
-
-  console.log(`data`, vag);
+  
 
   return (
     <>
